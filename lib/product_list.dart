@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:barcodesearch/product_model.dart';
+import 'package:barcodesearch/Models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductList extends ValueNotifier<List<ProductModel>> {

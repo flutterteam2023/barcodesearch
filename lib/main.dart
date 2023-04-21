@@ -1,6 +1,6 @@
 import 'package:barcodesearch/product_list.dart';
 import 'package:barcodesearch/firebase_options.dart';
-import 'package:barcodesearch/product_model.dart';
+import 'package:barcodesearch/Models/product_model.dart';
 import 'package:barcodesearch/string.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
