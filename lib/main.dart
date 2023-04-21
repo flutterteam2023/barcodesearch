@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      home: const MyHomePage(title: 'Flutter TEAM '),
+      home: const MyHomePage(title: 'Flutter TEAM Remove '),
 
     );
   }
