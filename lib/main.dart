@@ -1,4 +1,4 @@
-import 'package:barcodesearch/counter.dart';
+import 'package:barcodesearch/product_list.dart';
 import 'package:barcodesearch/firebase_options.dart';
 import 'package:barcodesearch/product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
