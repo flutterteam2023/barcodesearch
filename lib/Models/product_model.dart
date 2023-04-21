@@ -1,4 +1,3 @@
-
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
@@ -50,10 +49,10 @@ class ProductModel {
       barcode: map['barcode'] != null ? map['barcode'] as String : null,
       photoURL: map['photoURL'] != null ? map['photoURL'] as String : null,
       nameArray: map['nameArray'] != null
-          ? List<String>.from((map['nameArray'] as List<String>))
+          ? List<String>.from((map['nameArray'] as List<dynamic>))
           : null,
       barcodeArray: map['barcodeArray'] != null
-          ? List<String>.from((map['barcodeArray'] as List<String>))
+          ? List<String>.from((map['barcodeArray'] as List<dynamic>))
           : null,
     );
   }
