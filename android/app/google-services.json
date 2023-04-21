@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "308637159495",
+    "project_id": "barcodesearch",
+    "storage_bucket": "barcodesearch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308637159495:android:cc74245facbcc750252162",
+        "android_client_info": {
+          "package_name": "com.example.barcodesearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308637159495-9as6sp09jqi2p9gnatu547dt1fci05r9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6aS6Jp3lwohryFE2vHKIcUvDxcHfnr2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308637159495-9as6sp09jqi2p9gnatu547dt1fci05r9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
