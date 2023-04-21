@@ -1,6 +1,7 @@
 import 'package:barcodesearch/product_list.dart';
 import 'package:barcodesearch/firebase_options.dart';
 import 'package:barcodesearch/product_model.dart';
+import 'package:barcodesearch/string.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +24,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+<<<<<<< Updated upstream
 
       home: const MyHomePage(title: 'Flutter TEAM Remove '),
 
+=======
+      home: const MyHomePage(title: 'Flutter TEAM hjhj'),
+>>>>>>> Stashed changes
     );
   }
 }
@@ -47,28 +52,19 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ValueListenableBuilder(
-          valueListenable: ProductList(),
-          builder: (context, _, __) {
-            return ListView.builder(
-              itemCount: ProductList().length,
-              itemBuilder: (context, index) {
-                ProductModel product = ProductList().getIndex(index);
-                return Text(product.toString());
-              },
-            );
-          }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final product = ProductModel(
-            name: "adasdas",
-            barcode: "123123",
-            photoURL: null,
+        valueListenable: ProductList(),
+        builder: (context, _, __) {
+          return ListView.builder(
+            itemCount: ProductList().length,
+            itemBuilder: (context, index) {
+              ProductModel product = ProductList().getIndex(index);
+              return Text(product.toString());
+            },
           );
-          ProductList().add(product);
-          await FirebaseFirestore.instance.collection("products").doc().set(
-                product.toMap(),
-              );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {},
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
