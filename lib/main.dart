@@ -1,7 +1,7 @@
+import 'package:barcodesearch/Screens/login/login_screen.dart';
 import 'package:barcodesearch/product_list.dart';
 import 'package:barcodesearch/firebase_options.dart';
 import 'package:barcodesearch/Models/product_model.dart';
-import 'package:barcodesearch/string.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +19,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Team',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter TEAM Remove '),
+      home:LoginScreen(),
     );
   }
 }
