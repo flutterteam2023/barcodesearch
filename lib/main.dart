@@ -57,11 +57,14 @@ class _MyHomePageState extends State<MyHomePage> {
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          ProductList().add(
-            ProductModel(name: "adasdas", price: 123123),
+          final product = ProductModel(
+            name: "adasdas",
+            barcode: "123123",
+            photoURL: null,
           );
+          ProductList().add(product);
           await FirebaseFirestore.instance.collection("products").doc().set(
-                ProductModel(name: "adasdas", price: 123123).toMap(),
+                product.toMap(),
               );
         },
         tooltip: 'Increment',
