@@ -1,28 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-class OnbordingData extends StatefulWidget {
-  const OnbordingData({
+class OnBoardingData extends StatefulWidget {
+  const OnBoardingData({
     required this.image,
     required this.desc,
     super.key,
   });
   final Widget image;
-
   final String desc;
-
   @override
-  _OnbordingDataState createState() =>
-      _OnbordingDataState(this.image, this.desc);
+  State<OnBoardingData> createState() => _OnBoardingDataState();
 }
 
-class _OnbordingDataState extends State<OnbordingData> {
-  _OnbordingDataState(this.image, this.desc);
-  final Widget image;
-
-  final String desc;
-
+class _OnBoardingDataState extends State<OnBoardingData> {
   @override
   Widget build(BuildContext context) {
+    final image = widget.image;
+
+    final desc = widget.desc;
     return Container(
       alignment: Alignment.center,
       child: Column(
