@@ -6,6 +6,7 @@ import 'package:barcodesearch/Models/product_model.dart';
 import 'package:barcodesearch/Screens/home_screen.dart';
 import 'package:barcodesearch/Screens/login/login_screen.dart';
 import 'package:barcodesearch/Shared/Constants/firebase_constants.dart';
+import 'package:barcodesearch/Shared/Constants/string_constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -69,9 +70,9 @@ class RegisterManager extends ValueNotifier<String> {
           });
 
           Flushbar(
-          title: 'Başarılı',
+          title: StringConstants.successfull,
           message:
-              'Kayıt Başarılı',
+              StringConstants.registerSuccessful,
           duration: const Duration(seconds: 2),
         ).show(context);
         Navigator.push(context,
@@ -89,46 +90,46 @@ class RegisterManager extends ValueNotifier<String> {
 
           return user.user;
         } on FirebaseAuthException catch (e) {
-          if (e.code.toString() == "invalid-email") {
+          if (e.code.toString() == StringConstants.invalidEmail) {
             Flushbar(
-          title: 'Başarısız',
+          title: StringConstants.unsuccessful,
           message:
-              'Geçersiz E Posta',
+              StringConstants.emailIsInvalid,
           duration: const Duration(seconds: 2),
         ).show(context);
-          } else if (e.code.toString() == "weak-password") {
+          } else if (e.code.toString() == StringConstants.weakPassword) {
             Flushbar(
-              title: 'Başarısız',
-              message: 'Güçsüz Parola',
+              title: StringConstants.unsuccessful,
+              message: StringConstants.passwordIsWeak,
               duration: const Duration(seconds: 2),
             ).show(context);
-          } else if (e.code.toString() == "email-already-in-use") {
+          } else if (e.code.toString() == StringConstants.emailAlreadyInUse) {
             Flushbar(
-              title: 'Başarısız',
-              message: 'E mail Kullanılıyor',
+              title: StringConstants.unsuccessful,
+              message: StringConstants.usingEmail,
               duration: const Duration(seconds: 2),
             ).show(context);
           } else {
             Flushbar(
-              title: 'Başarısız',
-              message: 'Boş Hata',
+              title: StringConstants.unsuccessful,
+              message: StringConstants.emptyError,
               duration: const Duration(seconds: 2),
             ).show(context);
           }
         }
       } else {
         Flushbar(
-          title: 'Başarısız',
+          title: StringConstants.unsuccessful,
           message:
-              'Şifre Tekrar Boş Bırakılamaz Ya Da Şifre Tekrarı İle Uyuşmamaktadır',
+              StringConstants.repetitivePasswordError,
           duration: const Duration(seconds: 2),
         ).show(context);
       }
     } else {
       Flushbar(
-          title: 'Başarısız',
+          title: StringConstants.unsuccessful,
           message:
-              'Hiçbir Alan Boş Bırakılamaz',
+              StringConstants.spaceGapError,
           duration: const Duration(seconds: 2),
         ).show(context);
       createUserControl.value = false;

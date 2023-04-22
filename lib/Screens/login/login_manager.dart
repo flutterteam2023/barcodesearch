@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:another_flushbar/flushbar.dart';
+import 'package:barcodesearch/Shared/Constants/string_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class LoginManager extends ValueNotifier<String> {
 
   final ValueNotifier<String> password = ValueNotifier<String>("");
   ValueNotifier<String> warningMessage =
-      ValueNotifier("We will a link to your email address");
+      ValueNotifier(StringConstants.goToLink);
   final ValueNotifier<String> forgetPassword = ValueNotifier<String>("");
   final ValueNotifier<bool> validateForgetPassword = ValueNotifier<bool>(false);
 
@@ -36,13 +37,13 @@ class LoginManager extends ValueNotifier<String> {
       await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password.trim());
       Flushbar(
-        title: 'Başarılı',
-        message: 'Giriş Yaptınız',
+        title: StringConstants.successfull,
+        message: StringConstants.signIn,
         duration: const Duration(seconds: 2),
       ).show(context);
     } catch (e) {
       Flushbar(
-        title: 'Başarısız',
+        title: StringConstants.unsuccessful,
         message: e.toString(),
         duration: const Duration(seconds: 2),
       ).show(context);
@@ -56,25 +57,24 @@ class LoginManager extends ValueNotifier<String> {
       await _auth.sendPasswordResetEmail(email: email.trim());
       getMessage(
           message:
-              'E posta adresinize bir link gönderdik lütfen kontrol ediniz!');
+              StringConstants.goToLink);
     } on FirebaseAuthException catch (e) {
-      if (e.code == "unknown") {
-        getMessage(message: "E mail ve şifre alanları boş bırakılamaz");
-      } else if (e.code == "invalid-email") {
-        getMessage(message: 'Yanlış e posta formatı!');
-      } else if (e.code == "user-not-found") {
-        getMessage(message: 'E posta veya şifre alanları boş geçirilemez!');
-      } else if (e.code == "network-request-failed") {
+      if (e.code == StringConstants.unKnown) {
+        getMessage(message: StringConstants.emailPasswordEmptyMessage);
+      } else if (e.code == StringConstants.invalidEmail) {
+        getMessage(message: StringConstants.emailFormatError);
+      } else if (e.code == StringConstants.userNotFound) {
+        getMessage(message:StringConstants.emailPasswordEmptyMessage);
+      } else if (e.code == StringConstants.networkRequestFailed) {
         Flushbar(
-          title: 'İnternet bağlantınızı kontrol ediniz bir sorun oluştu!',
+          title: StringConstants.internetWarningMessage,
           duration: const Duration(seconds: 2),
         );
       } else {
-        getMessage(message: 'Yanlış e posta formatı!');
+        getMessage(message: StringConstants.emailFormatError);
       }
     }
   }
 }
 
-//Kullanıcıları Firebaseye Kaydetme
 

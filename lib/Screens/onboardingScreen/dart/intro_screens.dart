@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class IntroScreen extends StatefulWidget {
-  final List<OnbordingData> onbordingDataList;
+  final List<OnBoardingData> onbordingDataList;
   final MaterialPageRoute pageRoute;
   const IntroScreen(
     this.onbordingDataList,
