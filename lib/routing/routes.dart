@@ -23,7 +23,7 @@ class AppRouter {
             path: APP_PAGE.initial.toPath,
             name: APP_PAGE.initial.toName,
             builder: (BuildContext context, GoRouterState state) {
-              bool isFirstAppOpen = true;
+              bool isFirstAppOpen = false;
               if (isFirstAppOpen) {
                 return OnboardingScreen();
               } else {

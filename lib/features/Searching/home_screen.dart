@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context.pushNamed(
                                     APP_PAGE.results.toName,
                                     queryParams: {
-                                      'searchedText': searchController.text
+                                      'searchedText': searchController.text,
                                     },
                                   );
                                 });

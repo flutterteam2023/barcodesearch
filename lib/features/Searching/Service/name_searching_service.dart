@@ -15,7 +15,7 @@ class NameSearchingService {
 
   Future<void> searchInitiliaze({required String text}) async {
     await FireCollection.collection(FirebaseConstants.productCollection)
-        .where(FirebaseConstants.nameArrayField, arrayContains: text)
+        .where(FirebaseConstants.nameArrayField.toName, arrayContains: text)
         .withConverter<ProductModel>(
           fromFirestore: (snapshot, _) =>
               ProductModel.fromMap(snapshot.data()!),
@@ -46,7 +46,7 @@ class NameSearchingService {
     if (!isLastPage) {
       if (lastDocument != null) {
         await FireCollection.collection(FirebaseConstants.productCollection)
-            .where(FirebaseConstants.nameArrayField, arrayContains: text)
+            .where(FirebaseConstants.nameArrayField.toName, arrayContains: text)
             .withConverter<ProductModel>(
               fromFirestore: (snapshot, _) =>
                   ProductModel.fromMap(snapshot.data()!),

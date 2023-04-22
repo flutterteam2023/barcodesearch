@@ -15,7 +15,7 @@ class BarcodeSearchingService {
 
   Future<void> searchInitiliaze({required String text}) async {
     await FireCollection.collection(FirebaseConstants.productCollection)
-        .where(FirebaseConstants.barcodeArrayField, arrayContains: text)
+        .where(FirebaseConstants.barcodeArrayField.toName, arrayContains: text)
         .withConverter<ProductModel>(
           fromFirestore: (snapshot, _) =>
               ProductModel.fromMap(snapshot.data()!),
@@ -47,7 +47,10 @@ class BarcodeSearchingService {
     if (!isLastPage) {
       if (lastDocument != null) {
         await FireCollection.collection(FirebaseConstants.productCollection)
-            .where(FirebaseConstants.barcodeArrayField, arrayContains: text)
+            .where(
+              FirebaseConstants.barcodeArrayField.toName,
+              arrayContains: text,
+            )
             .withConverter<ProductModel>(
               fromFirestore: (snapshot, _) =>
                   ProductModel.fromMap(snapshot.data()!),
