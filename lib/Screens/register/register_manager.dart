@@ -8,6 +8,8 @@ class RegisterManager extends ValueNotifier<String> {
   factory RegisterManager() => _shared;
   RegisterManager._sharedInstance() : super("");
   static final RegisterManager _shared = RegisterManager._sharedInstance();
+  ValueNotifier<String> name = ValueNotifier<String>("");
+  ValueNotifier<String> surname = ValueNotifier<String>("");
   ValueNotifier<String> email = ValueNotifier<String>("");
   ValueNotifier<String> password = ValueNotifier<String>("");
   ValueNotifier<String> rePassword = ValueNotifier<String>("");
@@ -21,11 +23,12 @@ class RegisterManager extends ValueNotifier<String> {
       BuildContext context) async {
     createUserControl.value = true;
 
-    if (_email.isNotEmpty && _password.isNotEmpty &&_rePassword.isNotEmpty) {
+    if (_email.isNotEmpty && _password.isNotEmpty && _rePassword.isNotEmpty) {
       if (_password == _rePassword) {
         try {
           var user = await _auth.createUserWithEmailAndPassword(
               email: _email, password: _password);
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Kayıt Başarılı'),
@@ -41,14 +44,14 @@ class RegisterManager extends ValueNotifier<String> {
           );
 
           createUserControl.value = false;
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginScreen()));
-              email.value="";
-              password.value = "";
-              rePassword.value="";
-                LoginManager().email.value="";
-                        LoginManager().password.value="";
-                        LoginManager().forgetPassword.value="";
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+          email.value = "";
+          password.value = "";
+          rePassword.value = "";
+          LoginManager().email.value = "";
+          LoginManager().password.value = "";
+          LoginManager().forgetPassword.value = "";
 
           return user.user;
         } on FirebaseAuthException catch (e) {

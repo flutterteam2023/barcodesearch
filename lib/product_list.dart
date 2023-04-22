@@ -16,6 +16,12 @@ class ProductList extends ValueNotifier<List<ProductModel>> {
     notifyListeners();
   }
 
+  void reset() {
+    final products = value;
+    products.clear();
+    notifyListeners();
+  }
+
   ProductModel getIndex(int index) {
     return value[index];
   }

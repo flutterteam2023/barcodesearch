@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  another_flushbar: ^1.12.29
   cloud_firestore: ^4.5.2
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.4.2
@@ -36,9 +37,16 @@ dependencies:
     sdk: flutter
   flutter_bounceable: ^1.1.0
   flutter_getit: ^1.2.1
+  flutter_staggered_animations: ^1.1.1
   go_router: ^6.5.7
+
   lottie: ^2.3.2
   sizer: ^2.0.15
+
+  google_fonts: ^4.0.3
+  iconsax: ^0.0.8
+  loading_animation_widget: ^1.2.0+4
+
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -71,8 +79,8 @@ flutter:
     - family: Raleway
       fonts:
         - asset: assets/fonts/Raleway-Black.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+    #       - asset: fonts/Schyler-Italic.ttf
+    #         style: italic
     - family: Raleway Regular
       fonts:
         - asset: assets/fonts/Raleway-Regular.ttf

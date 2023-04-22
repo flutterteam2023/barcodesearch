@@ -1,12 +1,11 @@
-import 'package:barcodesearch/Screens/login/login_screen.dart';
-import 'package:barcodesearch/product_list.dart';
-import 'package:barcodesearch/firebase_options.dart';
-import 'package:barcodesearch/Models/product_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:barcodesearch/Shared/AppRoute/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'Screens/onboardingScreen/dart/onboarding_Screen.dart';
+
+import 'package:barcodesearch/Models/product_model.dart';
+import 'package:barcodesearch/firebase_options.dart';
+import 'package:barcodesearch/product_list.dart';
 
 
 Future<void> main() async {
@@ -22,6 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Team',
@@ -74,6 +74,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: OnboardingScreen(),
+
     );
   }
 }
