@@ -35,7 +35,7 @@ class IntroScreenState extends State<IntroScreen> {
 
   Widget _buildPageIndicator(int page) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 2.0),
+      margin: const EdgeInsets.symmetric(horizontal: 2),
       height: page == currentPage ? 10.0 : 6.0,
       width: page == currentPage ? 10.0 : 6.0,
       decoration: BoxDecoration(
@@ -49,12 +49,11 @@ class IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xFFEEEEEE),
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Expanded(
-            flex: 1,
             child: Container(),
           ),
           Expanded(
@@ -66,21 +65,23 @@ class IntroScreenState extends State<IntroScreen> {
             ),
           ),
           Expanded(
-            flex: 1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 TextButton(
-                  child: const Text("SKIP",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.0)),
+                  child: const Text(
+                    "SKIP",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                   onPressed: () => widget.goToHomePage(context),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Row(
                     children: [
                       _buildPageIndicator(0),
@@ -91,16 +92,18 @@ class IntroScreenState extends State<IntroScreen> {
                 ),
                 TextButton(
                   child: Text(
-                      currentPage == widget.onbordingDataList.length - 1
-                          ? "GOT IT"
-                          : "NEXT",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.0)),
+                    currentPage == widget.onbordingDataList.length - 1
+                        ? "GOT IT"
+                        : "NEXT",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                   onPressed: () {
                     if (currentPage == widget.onbordingDataList.length - 1) {
-                      Future.delayed(const Duration(seconds: 0), () {
+                      Future.delayed(const Duration(), () {
                         context.pushNamed(APP_PAGE.home.toName);
                       });
                     } else {
