@@ -1,6 +1,7 @@
-import 'package:barcodesearch/Models/product_model.dart';
+import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/Screens/onboardingScreen/dart/onboarding_screen.dart';
-import 'package:barcodesearch/Shared/AppRoute/routes.dart';
+import 'package:barcodesearch/routing/routes.dart';
+import 'package:barcodesearch/Shared/Preferences/my_user.dart';
 import 'package:barcodesearch/firebase_options.dart';
 import 'package:barcodesearch/product_list.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,6 +12,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await MyUser().getUserData;
   runApp(const MyApp());
 }
 
