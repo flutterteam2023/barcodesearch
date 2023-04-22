@@ -34,7 +34,13 @@ class _ResultScreenState extends State<ResultScreen> {
     var loading = false;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Arama Sonuçları:\n${widget.searchedText}"),
+        centerTitle: false,
+        title: Text(
+          'Arama Sonuçları:\n${widget.searchedText}',
+          style: GoogleFonts.poppins(
+            fontSize: 18,
+          ),
+        ),
       ),
       body: ValueListenableBuilder(
         valueListenable: ProductList(),
@@ -84,7 +90,7 @@ class _ResultScreenState extends State<ResultScreen> {
                             const Divider(),
                             ListTile(
                               title: Text(
-                                ProductList().getIndex(index).name ?? "",
+                                ProductList().getIndex(index).name ?? '',
                                 style: GoogleFonts.poppins(),
                               ),
                               trailing: const Icon(
