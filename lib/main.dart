@@ -1,4 +1,5 @@
 import 'package:barcodesearch/Authentication/login.dart';
+import 'package:barcodesearch/Screens/onboardingScreen/dart/onboarding_Screen.dart';
 import 'package:barcodesearch/Shared/AppRoute/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Georgia',
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
             headline4: TextStyle(
                 fontSize: 150.0,
                 fontFamily: 'Hind',
@@ -74,7 +75,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: LoginScreen(),
+      home: OnboardingScreen(),
 
     );
   }

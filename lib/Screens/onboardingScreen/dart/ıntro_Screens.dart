@@ -1,3 +1,4 @@
+import 'package:barcodesearch/Screens/home_screen.dart';
 import 'package:barcodesearch/Screens/login/login_screen.dart';
 import 'package:barcodesearch/Shared/Widgets/onboarding_Widget.dart';
 import 'package:flutter/material.dart';
@@ -96,11 +97,11 @@ class IntroScreenState extends State<IntroScreen> {
                             fontSize: 16.0)),
                     onPressed: () {
                       if (currentPage == widget.onbordingDataList.length - 1) {
-                        Future.delayed(Duration(seconds: 5), () {
+                        Future.delayed(Duration(seconds: 0), () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
+                                  builder: (context) => HomeScreen()));
                         });
                       } else {
                         controller.nextPage(
