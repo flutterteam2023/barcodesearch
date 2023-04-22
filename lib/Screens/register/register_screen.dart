@@ -5,14 +5,14 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 
 import '../../Shared/Constants/custom_text_field.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class RegisterScreenOLD extends StatefulWidget {
+  const RegisterScreenOLD({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<RegisterScreenOLD> createState() => _RegisterScreenOLDState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterScreenOLDState extends State<RegisterScreenOLD> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

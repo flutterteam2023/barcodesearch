@@ -15,7 +15,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,41 +69,42 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  ValueListenableBuilder(valueListenable: LoginManager(), 
-                  builder: (context, _, __) {
-                    return CustomTextField(
-                    hintText: "Your Email",
-                    textInputType: TextInputType.emailAddress,
-                    obscureText: false,
-                    onChanged: (p0) {
-                     LoginManager().email.value = p0;
+                  ValueListenableBuilder(
+                    valueListenable: LoginManager(),
+                    builder: (context, _, __) {
+                      return CustomTextField(
+                        hintText: "Your Email",
+                        textInputType: TextInputType.emailAddress,
+                        obscureText: false,
+                        onChanged: (p0) {
+                          LoginManager().email.value = p0;
+                        },
+                      );
                     },
-                  );
-                  },
                   ),
                   SizedBox(
                     height: 19,
                   ),
-                  ValueListenableBuilder(valueListenable: LoginManager(),
-                  builder: (context, _, __) {
-                    return CustomTextField(
-                    hintText: "Your Password",
-                    textInputType: TextInputType.visiblePassword,
-                    obscureText: true,
-                    onChanged: (p0) {
-                     LoginManager().password.value = p0;
+                  ValueListenableBuilder(
+                    valueListenable: LoginManager(),
+                    builder: (context, _, __) {
+                      return CustomTextField(
+                        hintText: "Your Password",
+                        textInputType: TextInputType.visiblePassword,
+                        obscureText: true,
+                        onChanged: (p0) {
+                          LoginManager().password.value = p0;
+                        },
+                      );
                     },
-                  );
-                    
-                  },
                   ),
                   SizedBox(
                     height: 25,
                   ),
                   Bounceable(
                     onTap: () {
-                      LoginManager()
-                          .signIn(LoginManager().email.value,LoginManager().password.value, context);
+                      LoginManager().signIn(LoginManager().email.value,
+                          LoginManager().password.value, context);
                     },
                     child: Container(
                       height: 58,
@@ -132,15 +132,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             _forgetPassword(context);
                           },
                           child: Text("I forgot my password")),
-                      TextButton(onPressed: () {
-                        
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterScreen()));
-                        LoginManager().email.value="";
-                        LoginManager().password.value="";
-                        LoginManager().forgetPassword.value="";
-                        
-
-                      }, child: Text("Register")),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RegisterScreenOLD()));
+                            LoginManager().email.value = "";
+                            LoginManager().password.value = "";
+                            LoginManager().forgetPassword.value = "";
+                          },
+                          child: Text("Register")),
                     ],
                   )
                 ],

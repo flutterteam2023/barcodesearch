@@ -1,3 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:async';
+
+import 'package:another_flushbar/flushbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -9,16 +14,14 @@ class LoginManager extends ValueNotifier<String> {
   final ValueNotifier<String> email = ValueNotifier<String>("");
 
   final ValueNotifier<String> password = ValueNotifier<String>("");
-  ValueNotifier<String> warningMessage=ValueNotifier("We will a link to your email address");
-   final ValueNotifier<String> forgetPassword = ValueNotifier<String>("");
+  ValueNotifier<String> warningMessage =
+      ValueNotifier("We will a link to your email address");
+  final ValueNotifier<String> forgetPassword = ValueNotifier<String>("");
   final ValueNotifier<bool> validateForgetPassword = ValueNotifier<bool>(false);
 
-  
-  
-  void getMessage({String message = "We will a link to your email address"}){
+  void getMessage({String message = "We will a link to your email address"}) {
     warningMessage = ValueNotifier(message);
     notifyListeners();
-
   }
 
   void textFieldValidate(
@@ -32,62 +35,39 @@ class LoginManager extends ValueNotifier<String> {
     try {
       await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password.trim());
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Başarılı'),
-          duration: Duration(seconds: 2),
-          action: SnackBarAction(
-            label: 'Eylem', // Eylem düğmesi etiketi
-            onPressed: () {
-              // Eylem düğmesine tıklandığında yapılacak işlemler
-              // ...
-            },
-          ),
-        ),
-      );
+      Flushbar(
+        title: 'Başarılı',
+        message: 'Giriş Yaptınız',
+        duration: const Duration(seconds: 2),
+      ).show(context);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Başarısız'),
-          duration: Duration(seconds: 2),
-          action: SnackBarAction(
-            label: 'Eylem', // Eylem düğmesi etiketi
-            onPressed: () {
-              // Eylem düğmesine tıklandığında yapılacak işlemler
-              // ...
-            },
-          ),
-        ),
-      );
+      Flushbar(
+        title: 'Başarısız',
+        message: e.toString(),
+        duration: const Duration(seconds: 2),
+      ).show(context);
     }
   }
-  
-  
-  
+
   //Şifre Resetleme Fonksiyonu
 
   Future resetPassword(String email, BuildContext context) async {
     try {
       await _auth.sendPasswordResetEmail(email: email.trim());
-      getMessage(message: 'E posta adresinize bir link gönderdik lütfen kontrol ediniz!');
+      getMessage(
+          message:
+              'E posta adresinize bir link gönderdik lütfen kontrol ediniz!');
     } on FirebaseAuthException catch (e) {
       if (e.code == "unknown") {
-        
         getMessage(message: "E mail ve şifre alanları boş bırakılamaz");
-        
       } else if (e.code == "invalid-email") {
         getMessage(message: 'Yanlış e posta formatı!');
       } else if (e.code == "user-not-found") {
-       getMessage(message: 'E posta veya şifre alanları boş geçirilemez!');
+        getMessage(message: 'E posta veya şifre alanları boş geçirilemez!');
       } else if (e.code == "network-request-failed") {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content:
-                Text('İnternet bağlantınızı kontrol ediniz bir sorun oluştu!'),
-            behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.only(
-                top: 80), // Yukarıdan çıkması için margin'ı ayarlayın
-          ),
+        Flushbar(
+          title: 'İnternet bağlantınızı kontrol ediniz bir sorun oluştu!',
+          duration: const Duration(seconds: 2),
         );
       } else {
         getMessage(message: 'Yanlış e posta formatı!');

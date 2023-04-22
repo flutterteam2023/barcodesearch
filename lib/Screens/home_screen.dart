@@ -1,3 +1,6 @@
+import 'package:barcodesearch/Authentication/dialog.dart';
+import 'package:barcodesearch/Authentication/login.dart';
+import 'package:barcodesearch/Authentication/reset.dart';
 import 'package:barcodesearch/Models/product_model.dart';
 import 'package:barcodesearch/Service/barcode_searching_service.dart';
 import 'package:barcodesearch/Service/name_searching_service.dart';
@@ -105,6 +108,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    showCustomModelBottomSheet(context, LoginScreen());
+                  },
+                  child: Text("Giriş Yap"),
                 ),
               ],
             ),

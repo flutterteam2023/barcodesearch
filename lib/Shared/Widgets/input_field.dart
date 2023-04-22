@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class InputField extends StatelessWidget {
   InputField({
     required this.suffixIcon,
-    required this.controller,
+    this.controller,
     required this.hintText,
     super.key,
     this.validator,
@@ -15,7 +15,7 @@ class InputField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final Widget suffixIcon;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final Function(String)? onChanged;
   String? Function(String?)? validator;
   int? maxLength;
