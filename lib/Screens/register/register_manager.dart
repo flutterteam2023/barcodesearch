@@ -1,4 +1,11 @@
+import 'dart:ffi';
+
+import 'package:another_flushbar/flushbar.dart';
+import 'package:barcodesearch/Authentication/user_model.dart';
+import 'package:barcodesearch/Models/product_model.dart';
+import 'package:barcodesearch/Screens/home_screen.dart';
 import 'package:barcodesearch/Screens/login/login_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -13,39 +20,65 @@ class RegisterManager extends ValueNotifier<String> {
   ValueNotifier<String> email = ValueNotifier<String>("");
   ValueNotifier<String> password = ValueNotifier<String>("");
   ValueNotifier<String> rePassword = ValueNotifier<String>("");
+  ValueNotifier<int> credit = ValueNotifier<int>(12);
+  ValueNotifier<DateTime> createdAt = ValueNotifier<DateTime>(DateTime.now());
+
+
 
   ValueNotifier<bool> createUserControl = ValueNotifier<bool>(false);
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 //Yeni Kullanıcı Oluşturma
-  Future<User?> createUser(String _email, String _password, String _rePassword,
-      BuildContext context) async {
+  Future<User?> createUser(
+    String _email,
+    String _password,
+    String _rePassword,
+    String _name,
+    String _surname,
+    int _credit,
+    DateTime _createdAt,
+    BuildContext context,
+  ) async {
+    UserModel userModels = UserModel(
+        email: _email,
+        createdAt: _createdAt,
+        name: _name,
+        surname: _surname,
+        credit: _credit);
     createUserControl.value = true;
 
-    if (_email.isNotEmpty && _password.isNotEmpty && _rePassword.isNotEmpty) {
+    if (userModels.email.isNotEmpty &&
+        _password.isNotEmpty &&
+        _rePassword.isNotEmpty &&
+        userModels.name.isNotEmpty &&
+        userModels.surname.isNotEmpty) {
       if (_password == _rePassword) {
         try {
           var user = await _auth.createUserWithEmailAndPassword(
-              email: _email, password: _password);
+              email: userModels.email, password: _password);
 
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Kayıt Başarılı'),
-              duration: Duration(seconds: 2),
-              action: SnackBarAction(
-                label: 'Eylem', // Eylem düğmesi etiketi
-                onPressed: () {
-                  // Eylem düğmesine tıklandığında yapılacak işlemler
-                  // ...
-                },
-              ),
-            ),
-          );
+          await _firestore.collection("users").doc(user.user?.uid).set({
+            "name": userModels.name,
+            "surname": userModels.surname,
+            "email": userModels.email,
+            "credit": userModels.credit,
+            "createdAt": userModels.createdAt
+          });
 
+          Flushbar(
+          title: 'Başarılı',
+          message:
+              'Kayıt Başarılı',
+          duration: const Duration(seconds: 2),
+        ).show(context);
+        Navigator.push(context,
+        MaterialPageRoute(builder: (context)=>HomeScreen())
+        );
+           
           createUserControl.value = false;
-          Navigator.of(context).pop();
-          Navigator.of(context).pop();
+         
           email.value = "";
           password.value = "";
           rePassword.value = "";
@@ -56,93 +89,47 @@ class RegisterManager extends ValueNotifier<String> {
           return user.user;
         } on FirebaseAuthException catch (e) {
           if (e.code.toString() == "invalid-email") {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Geçersiz E posta'),
-                duration: Duration(seconds: 2),
-                action: SnackBarAction(
-                  label: 'Eylem', // Eylem düğmesi etiketi
-                  onPressed: () {
-                    // Eylem düğmesine tıklandığında yapılacak işlemler
-                    // ...
-                  },
-                ),
-              ),
-            );
+            Flushbar(
+          title: 'Başarısız',
+          message:
+              'Geçersiz E Posta',
+          duration: const Duration(seconds: 2),
+        ).show(context);
           } else if (e.code.toString() == "weak-password") {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Güçsüz Parola'),
-                duration: Duration(seconds: 2),
-                action: SnackBarAction(
-                  label: 'Eylem', // Eylem düğmesi etiketi
-                  onPressed: () {
-                    // Eylem düğmesine tıklandığında yapılacak işlemler
-                    // ...
-                  },
-                ),
-              ),
-            );
+            Flushbar(
+              title: 'Başarısız',
+              message: 'Güçsüz Parola',
+              duration: const Duration(seconds: 2),
+            ).show(context);
           } else if (e.code.toString() == "email-already-in-use") {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('E mail kullanılıyor'),
-                duration: Duration(seconds: 2),
-                action: SnackBarAction(
-                  label: 'Eylem', // Eylem düğmesi etiketi
-                  onPressed: () {
-                    // Eylem düğmesine tıklandığında yapılacak işlemler
-                    // ...
-                  },
-                ),
-              ),
-            );
+            Flushbar(
+              title: 'Başarısız',
+              message: 'E mail Kullanılıyor',
+              duration: const Duration(seconds: 2),
+            ).show(context);
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Boş Hata'),
-                duration: Duration(seconds: 2),
-                action: SnackBarAction(
-                  label: 'Eylem', // Eylem düğmesi etiketi
-                  onPressed: () {
-                    // Eylem düğmesine tıklandığında yapılacak işlemler
-                    // ...
-                  },
-                ),
-              ),
-            );
+            Flushbar(
+              title: 'Başarısız',
+              message: 'Boş Hata',
+              duration: const Duration(seconds: 2),
+            ).show(context);
           }
         }
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                'Şifre Tekrar Boş Bırakılamaz Ya Da Şifre Tekrarı İle Uyuşmamaktadır'),
-            duration: Duration(seconds: 2),
-            action: SnackBarAction(
-              label: 'Eylem', // Eylem düğmesi etiketi
-              onPressed: () {
-                // Eylem düğmesine tıklandığında yapılacak işlemler
-                // ...
-              },
-            ),
-          ),
-        );
+        Flushbar(
+          title: 'Başarısız',
+          message:
+              'Şifre Tekrar Boş Bırakılamaz Ya Da Şifre Tekrarı İle Uyuşmamaktadır',
+          duration: const Duration(seconds: 2),
+        ).show(context);
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Hiçbir alan boş bırakılamaz'),
-          duration: Duration(seconds: 2),
-          action: SnackBarAction(
-            label: 'Eylem', // Eylem düğmesi etiketi
-            onPressed: () {
-              // Eylem düğmesine tıklandığında yapılacak işlemler
-              // ...
-            },
-          ),
-        ),
-      );
+      Flushbar(
+          title: 'Başarısız',
+          message:
+              'Hiçbir Alan Boş Bırakılamaz',
+          duration: const Duration(seconds: 2),
+        ).show(context);
       createUserControl.value = false;
     }
   }
