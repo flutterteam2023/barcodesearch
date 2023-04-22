@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintText: 'Adınız',
                           suffixIcon: const SizedBox(),
                           onChanged: (p0) {
-                            RegisterManager().name.value = p0;
+                           RegisterManager().name.value = p0;
                           },
                         ),
                       ),
@@ -67,7 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintText: 'Soyadınız',
                           suffixIcon: const SizedBox(),
                           onChanged: (p0) {
-                            RegisterManager().surname.value = p0;
+                           RegisterManager().surname.value = p0;
                           },
                         ),
                       ),
@@ -193,6 +193,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     RegisterManager().email.value,
                     RegisterManager().password.value,
                     RegisterManager().rePassword.value,
+                    RegisterManager().name.value,
+                    RegisterManager().surname.value,
+                    RegisterManager().credit.value,
+                    RegisterManager().createdAt.value,
+                   
                     context,
                   );
                 }),

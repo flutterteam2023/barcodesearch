@@ -7,12 +7,15 @@ import '../../Shared/Constants/custom_text_field.dart';
 
 class RegisterScreenOLD extends StatefulWidget {
   const RegisterScreenOLD({super.key});
+  
 
   @override
   State<RegisterScreenOLD> createState() => _RegisterScreenOLDState();
 }
 
+
 class _RegisterScreenOLDState extends State<RegisterScreenOLD> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,10 +107,15 @@ class _RegisterScreenOLDState extends State<RegisterScreenOLD> {
                   Bounceable(
                     onTap: () {
                       RegisterManager().createUser(
-                        RegisterManager().email.value,
-                        RegisterManager().password.value,
-                        RegisterManager().rePassword.value,
-                        context,
+                         RegisterManager().email.value,
+                    RegisterManager().password.value,
+                    RegisterManager().rePassword.value,
+                    RegisterManager().name.value,
+                    RegisterManager().surname.value,
+                    RegisterManager().credit.value,
+                    RegisterManager().createdAt.value,
+                   
+                    context,
                       );
                     },
                     child: Container(

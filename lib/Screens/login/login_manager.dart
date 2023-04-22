@@ -75,3 +75,6 @@ class LoginManager extends ValueNotifier<String> {
     }
   }
 }
+
+//Kullanıcıları Firebaseye Kaydetme
+
