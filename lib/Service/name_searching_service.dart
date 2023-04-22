@@ -1,8 +1,9 @@
 import 'package:barcodesearch/Models/product_model.dart';
-import 'package:barcodesearch/Shared/Routes/firebase_constants.dart';
 import 'package:barcodesearch/product_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../Shared/Constants/firebase_constants.dart';
 
 class NameSearchingService {
   FirebaseFirestore db = FirebaseFirestore.instance;

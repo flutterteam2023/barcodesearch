@@ -1,3 +1,4 @@
+import 'package:barcodesearch/Authentication/login.dart';
 import 'package:barcodesearch/Shared/AppRoute/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +74,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: OnboardingScreen(),
+      home: LoginScreen(),
 
     );
   }
