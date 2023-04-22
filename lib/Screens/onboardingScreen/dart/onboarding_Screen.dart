@@ -25,7 +25,7 @@ class OnboardingScreen extends StatelessWidget {
       image: Lottie.network('https://assets5.lottiefiles.com/packages/lf20_ayrV44lF4f.json'),
 
       desc:
-      "Uygulamamızda herhangi bir ürünü aramak çok kolaydır. Sadece barkodunu okutun ve uygulama size tüm bilgileri sağlasın. Uygulamamız ayrıca, favorilerinizi kaydetmenize ve daha sonra tekrar bakmanıza olanak sağlar.",
+      "Uygulamamızda herhangi bir ürünü aramak çok kolaydır. Sadece barkodunu okutun ve uygulama size tüm bilgileri sağlasın. ",
     ),
     OnbordingData(
       image: Lottie.network('https://assets1.lottiefiles.com/packages/lf20_ER8E6HKqBl.json'),

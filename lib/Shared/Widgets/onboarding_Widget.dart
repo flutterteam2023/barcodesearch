@@ -29,8 +29,8 @@ class _OnbordingDataState extends State<OnbordingData> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            height:20.w,
-            width:30.h,
+            height:300,
+            width:300,
             child: image,
           ),
 
