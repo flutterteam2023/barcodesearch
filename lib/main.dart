@@ -1,9 +1,9 @@
 import 'package:barcodesearch/features/Searching/Models/product_model.dart';
-import 'package:barcodesearch/Screens/onboardingScreen/dart/onboarding_screen.dart';
+import 'package:barcodesearch/features/Onboarding/onboarding_screen.dart';
 import 'package:barcodesearch/routing/routes.dart';
-import 'package:barcodesearch/Shared/Preferences/my_user.dart';
+import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
 import 'package:barcodesearch/firebase_options.dart';
-import 'package:barcodesearch/product_list.dart';
+import 'package:barcodesearch/features/Searching/Values/product_list.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

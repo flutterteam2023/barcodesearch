@@ -1,6 +1,6 @@
 import 'package:barcodesearch/features/Searching/Service/barcode_searching_service.dart';
 import 'package:barcodesearch/features/Searching/Service/name_searching_service.dart';
-import 'package:barcodesearch/product_list.dart';
+import 'package:barcodesearch/features/Searching/Values/product_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';

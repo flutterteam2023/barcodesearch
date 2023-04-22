@@ -1,6 +1,6 @@
-import 'package:barcodesearch/Screens/home_screen.dart';
-import 'package:barcodesearch/Screens/onboardingScreen/dart/onboarding_Screen.dart';
-import 'package:barcodesearch/Screens/results_screen.dart';
+import 'package:barcodesearch/features/Searching/home_screen.dart';
+import 'package:barcodesearch/features/Searching/results_screen.dart';
+import 'package:barcodesearch/features/Onboarding/onboarding_screen.dart';
 import 'package:barcodesearch/routing/error_screen.dart';
 
 import 'package:barcodesearch/routing/route_constants.dart';

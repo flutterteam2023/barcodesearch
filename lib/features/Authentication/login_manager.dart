@@ -7,7 +7,7 @@ import 'package:barcodesearch/constants/string_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../Shared/Preferences/my_user.dart';
+import 'Values/my_user.dart';
 
 class LoginManager extends ValueNotifier<String> {
   factory LoginManager() => _shared;

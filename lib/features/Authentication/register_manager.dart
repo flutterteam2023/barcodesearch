@@ -4,18 +4,18 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:barcodesearch/constants/collections_constants.dart';
 import 'package:barcodesearch/features/Authentication/Models/user_model.dart';
 import 'package:barcodesearch/features/Searching/Models/product_model.dart';
-import 'package:barcodesearch/Screens/home_screen.dart';
-import 'package:barcodesearch/Screens/login/login_screen.dart';
+import 'package:barcodesearch/features/Searching/home_screen.dart';
+
 import 'package:barcodesearch/routing/route_constants.dart';
 import 'package:barcodesearch/constants/firebase_constants.dart';
 import 'package:barcodesearch/constants/string_constant.dart';
-import 'package:barcodesearch/Shared/Preferences/my_user.dart';
+import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../login/login_manager.dart';
+import 'login_manager.dart';
 
 class RegisterManager extends ValueNotifier<String> {
   factory RegisterManager() => _shared;

@@ -1,13 +1,13 @@
 import 'dart:async';
 
+import 'package:barcodesearch/common_widgets/app_buttons.dart';
+import 'package:barcodesearch/common_widgets/input_field.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/dialog.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/register.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/reset.dart';
 import 'package:barcodesearch/utils/theme.dart';
-import 'package:barcodesearch/Screens/login/login_manager.dart';
-import 'package:barcodesearch/Screens/register/register_screen.dart';
-import 'package:barcodesearch/Shared/Widgets/app_buttons.dart';
-import 'package:barcodesearch/Shared/Widgets/input_field.dart';
+import 'package:barcodesearch/features/Authentication/login_manager.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

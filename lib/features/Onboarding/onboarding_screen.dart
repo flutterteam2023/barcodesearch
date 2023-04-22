@@ -1,5 +1,5 @@
-import 'package:barcodesearch/Screens/onboardingScreen/dart/intro_screens.dart';
-import 'package:barcodesearch/Shared/Widgets/onboarding_widget.dart';
+import 'package:barcodesearch/common_widgets/onboarding_widget.dart';
+import 'package:barcodesearch/features/Onboarding/intro_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

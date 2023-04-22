@@ -1,4 +1,4 @@
-import 'package:barcodesearch/Screens/home_screen.dart';
+import 'package:barcodesearch/features/Searching/home_screen.dart';
 import 'package:barcodesearch/Screens/login/login_screen.dart';
 import 'package:barcodesearch/routing/route_constants.dart';
 import 'package:barcodesearch/Shared/Widgets/onboarding_widget.dart';

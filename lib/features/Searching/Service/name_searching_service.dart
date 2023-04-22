@@ -1,6 +1,6 @@
 import 'package:barcodesearch/constants/collections_constants.dart';
 import 'package:barcodesearch/features/Searching/Models/product_model.dart';
-import 'package:barcodesearch/product_list.dart';
+import 'package:barcodesearch/features/Searching/Values/product_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:barcodesearch/common_widgets/app_buttons.dart';
+import 'package:barcodesearch/common_widgets/input_field.dart';
 import 'package:barcodesearch/utils/theme.dart';
 import 'package:barcodesearch/features/Authentication/register_manager.dart';
-import 'package:barcodesearch/Shared/Widgets/app_buttons.dart';
-import 'package:barcodesearch/Shared/Widgets/input_field.dart';
+
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
