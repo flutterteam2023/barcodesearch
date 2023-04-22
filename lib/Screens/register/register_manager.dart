@@ -5,6 +5,7 @@ import 'package:barcodesearch/Authentication/user_model.dart';
 import 'package:barcodesearch/Models/product_model.dart';
 import 'package:barcodesearch/Screens/home_screen.dart';
 import 'package:barcodesearch/Screens/login/login_screen.dart';
+import 'package:barcodesearch/Shared/Constants/firebase_constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class RegisterManager extends ValueNotifier<String> {
           var user = await _auth.createUserWithEmailAndPassword(
               email: userModels.email, password: _password);
 
-          await _firestore.collection("users").doc(user.user?.uid).set({
+          await _firestore.collection(FirebaseConstants.usersCollection).doc(user.user?.uid).set({
             "name": userModels.name,
             "surname": userModels.surname,
             "email": userModels.email,
