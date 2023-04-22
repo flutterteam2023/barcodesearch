@@ -2,9 +2,11 @@ import 'package:barcodesearch/Shared/AppRoute/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+
 import 'package:barcodesearch/Models/product_model.dart';
 import 'package:barcodesearch/firebase_options.dart';
 import 'package:barcodesearch/product_list.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,13 +21,60 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Team',
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
+        primarySwatch: Colors.blue,
+        fontFamily: 'Georgia',
+        textTheme: TextTheme(
+            headline4: TextStyle(
+                fontSize: 150.0,
+                fontFamily: 'Hind',
+                color: Color(0xFFFFFFFF),
+                fontWeight: FontWeight.w300),
+            headline2: TextStyle(
+                fontSize: 20.0, fontFamily: 'Hind', color: Color(0xE0FFFFFF)),
+            headline3: TextStyle(
+                fontSize: 14.0, fontFamily: 'Hind', color: Colors.black54),
+            headline1: TextStyle(
+                fontSize: 40.0,
+                fontWeight: FontWeight.w300,
+                color: Colors.black,
+                fontFamily: 'Hind'),
+            headline6: TextStyle(
+                fontSize: 36.0, color: Colors.white, fontFamily: 'Hind'),
+            bodyText2: TextStyle(
+                fontSize: 14.0, fontFamily: 'Hind', color: Colors.black),
+            bodyText1: TextStyle(
+                fontSize: 14.0, fontFamily: 'Hind', color: Colors.white)),
+        appBarTheme:
+            AppBarTheme(backgroundColor: Color.fromARGB(255, 33, 33, 33)),
+        scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: Colors.orange,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            disabledBackgroundColor: Colors.red,
+            shadowColor: Colors.green,
+            side: BorderSide(color: Colors.grey),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            primary: Colors.purple,
+            backgroundColor: Colors.green,
+          ),
+        ),
       ),
-      debugShowCheckedModeBanner: false,
-      routerConfig: AppRouter().router,
+      home: OnboardingScreen(),
+
     );
   }
 }
