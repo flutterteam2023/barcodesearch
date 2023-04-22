@@ -1,14 +1,14 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 class OnbordingData extends StatefulWidget {
-  final image;
+  const OnbordingData({
+    required this.image,
+    required this.desc,
+    super.key,
+  });
+  final Widget image;
 
-  final desc;
-
-  OnbordingData({this.image, this.desc});
+  final String desc;
 
   @override
   _OnbordingDataState createState() =>
@@ -16,10 +16,10 @@ class OnbordingData extends StatefulWidget {
 }
 
 class _OnbordingDataState extends State<OnbordingData> {
-  final image;
-
-  final desc;
   _OnbordingDataState(this.image, this.desc);
+  final Widget image;
+
+  final String desc;
 
   @override
   Widget build(BuildContext context) {
@@ -28,23 +28,21 @@ class _OnbordingDataState extends State<OnbordingData> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Container(
-            height:300,
-            width:300,
+          SizedBox(
+            height: 300,
+            width: 300,
             child: image,
           ),
-
-
-          SizedBox(
-            height: 12.0,
+          const SizedBox(
+            height: 12,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
               desc,
               softWrap: true,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
         ],

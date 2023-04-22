@@ -3,10 +3,8 @@
 enum APP_PAGE {
   initial,
   home,
-  login,
-  register,
-  resetPassword,
   results,
+  onboarding,
 }
 
 extension AppPageExtension on APP_PAGE {
@@ -15,15 +13,11 @@ extension AppPageExtension on APP_PAGE {
       case APP_PAGE.initial:
         return '/';
       case APP_PAGE.home:
-        return '/home';
-      case APP_PAGE.login:
-        return 'login';
-      case APP_PAGE.register:
-        return 'register';
-      case APP_PAGE.resetPassword:
-        return 'reset_password';
+        return 'home';
       case APP_PAGE.results:
         return 'results';
+      case APP_PAGE.onboarding:
+        return 'onboarding';
     }
   }
 
@@ -31,16 +25,12 @@ extension AppPageExtension on APP_PAGE {
     switch (this) {
       case APP_PAGE.initial:
         return 'initial';
-      case APP_PAGE.register:
-        return 'register';
-      case APP_PAGE.login:
-        return 'login';
       case APP_PAGE.home:
         return 'home';
-      case APP_PAGE.resetPassword:
-        return 'reset_password';
       case APP_PAGE.results:
         return 'results';
+      case APP_PAGE.onboarding:
+        return 'onboarding';
     }
   }
 }
