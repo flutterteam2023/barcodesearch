@@ -1,17 +1,17 @@
-import 'package:barcodesearch/features/Searching/home_screen.dart';
-import 'package:barcodesearch/Screens/login/login_screen.dart';
+import 'package:barcodesearch/features/Onboarding/onboarding_widget.dart';
+
 import 'package:barcodesearch/routing/route_constants.dart';
-import 'package:barcodesearch/Shared/Widgets/onboarding_widget.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class IntroScreen extends StatefulWidget {
-  final List<OnBoardingData> onbordingDataList;
-  final MaterialPageRoute pageRoute;
   const IntroScreen(
     this.onbordingDataList,
     this.pageRoute,
   );
+  final List<OnBoardingData> onbordingDataList;
+  final MaterialPageRoute pageRoute;
 
   void goToHomePage(BuildContext context) {
     Navigator.push(context, pageRoute);
@@ -78,7 +78,9 @@ class IntroScreenState extends State<IntroScreen> {
                       fontSize: 16,
                     ),
                   ),
-                  onPressed: () => widget.goToHomePage(context),
+                  onPressed: () {
+                    context.pushNamed(APP_PAGE.home.toName);
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -87,6 +89,7 @@ class IntroScreenState extends State<IntroScreen> {
                       _buildPageIndicator(0),
                       _buildPageIndicator(1),
                       _buildPageIndicator(2),
+                      _buildPageIndicator(3),
                     ],
                   ),
                 ),
