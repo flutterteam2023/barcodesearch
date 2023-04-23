@@ -24,3 +24,7 @@ TextStyle regular16pt = const TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w400,
 );
+TextStyle bodytext = const TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+);
