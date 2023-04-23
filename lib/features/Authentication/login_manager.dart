@@ -6,7 +6,9 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:barcodesearch/constants/string_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../routing/route_constants.dart';
 import 'Values/my_user.dart';
 
 class LoginManager extends ValueNotifier<String> {
@@ -21,6 +23,7 @@ class LoginManager extends ValueNotifier<String> {
       ValueNotifier(StringConstants.goToLink);
   final ValueNotifier<String> forgetPassword = ValueNotifier<String>("");
   final ValueNotifier<bool> validateForgetPassword = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> textfieldController = ValueNotifier<bool>(true);
 
   void getMessage({String message = "We will a link to your email address"}) {
     warningMessage = ValueNotifier(message);
@@ -51,37 +54,91 @@ class LoginManager extends ValueNotifier<String> {
       Flushbar(
         title: StringConstants.successfull,
         message: StringConstants.signIn,
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 3),
       ).show(context);
-    } catch (e) {
-      Flushbar(
-        title: StringConstants.unsuccessful,
-        message: e.toString(),
-        duration: const Duration(seconds: 2),
-      ).show(context);
+    } on FirebaseAuthException catch (e) {
+      if (e.code.toString() == StringConstants.invalidEmail) {
+        Flushbar(
+          title: StringConstants.unsuccessful,
+          message: StringConstants.emailIsInvalid,
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      } else if (e.code.toString() == StringConstants.wrongPassword) {
+        Flushbar(
+          title: StringConstants.unsuccessful,
+          message: StringConstants.passwordIsWrong,
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      } else if (e.code.toString() == StringConstants.userNotFound) {
+        Flushbar(
+          title: StringConstants.unsuccessful,
+          message: StringConstants.notFoundUserMessage,
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      } else if (email.isEmpty || password.isEmpty) {
+        Flushbar(
+          title: StringConstants.unsuccessful,
+          message: StringConstants.emailPasswordEmptyMessage,
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      }
     }
   }
 
   //Şifre Resetleme Fonksiyonu
 
-  Future resetPassword(String email, BuildContext context) async {
+  Future resetPassword(String _email, BuildContext context) async {
     try {
-      await _auth.sendPasswordResetEmail(email: email.trim());
-      getMessage(message: StringConstants.goToLink);
+      await _auth.sendPasswordResetEmail(email: _email.trim());
+
+      Flushbar(
+        title: StringConstants.successfull,
+        message: StringConstants.goToLink,
+        duration: const Duration(seconds: 3),
+      ).show(context);
+     
+     
+     
+          
+
     } on FirebaseAuthException catch (e) {
-      if (e.code == StringConstants.unKnown) {
-        getMessage(message: StringConstants.emailPasswordEmptyMessage);
-      } else if (e.code == StringConstants.invalidEmail) {
-        getMessage(message: StringConstants.emailFormatError);
-      } else if (e.code == StringConstants.userNotFound) {
-        getMessage(message: StringConstants.emailPasswordEmptyMessage);
-      } else if (e.code == StringConstants.networkRequestFailed) {
+      if (e.code.toString() == StringConstants.unKnown) {
+        Flushbar(
+          title: StringConstants.unsuccessful,
+          message: StringConstants.emailEmptyMessage,
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      } else if (e.code.toString() == StringConstants.invalidEmail) {
+        Flushbar(
+          title: StringConstants.unsuccessful,
+          message: StringConstants.emailFormatError,
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      } else if (e.code.toString() == StringConstants.userNotFound) {
+        Flushbar(
+          title: StringConstants.unsuccessful,
+          message: StringConstants.notFoundUserMessage,
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      } else if (e.code.toString() == StringConstants.networkRequestFailed) {
         Flushbar(
           title: StringConstants.internetWarningMessage,
           duration: const Duration(seconds: 2),
         );
-      } else {
-        getMessage(message: StringConstants.emailFormatError);
+      } else if(e.code.toString()==StringConstants.missingEmail){
+        Flushbar(
+          title: StringConstants.unsuccessful,
+          message: StringConstants.emailIsMissing,
+          duration: const Duration(seconds: 3),
+        ).show(context);
+
+      } 
+      else {
+        Flushbar(
+          title: StringConstants.unsuccessful,
+          message: StringConstants.limitError,
+          duration: const Duration(seconds: 3),
+        ).show(context);
       }
     }
   }
