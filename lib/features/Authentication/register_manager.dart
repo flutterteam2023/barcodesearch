@@ -28,11 +28,15 @@ class RegisterManager extends ValueNotifier<String> {
   ValueNotifier<String> rePassword = ValueNotifier<String>("");
   ValueNotifier<int> credit = ValueNotifier<int>(12);
   ValueNotifier<DateTime> createdAt = ValueNotifier<DateTime>(DateTime.now());
-
+  ValueNotifier<bool> isChecked = ValueNotifier<bool>(false);
   ValueNotifier<bool> createUserControl = ValueNotifier<bool>(false);
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  void checked(){
+    isChecked.value = !isChecked.value;
+    notifyListeners();
+  }
 
 //Yeni Kullanıcı Oluşturma
   Future<User?> createUser(
@@ -57,7 +61,7 @@ class RegisterManager extends ValueNotifier<String> {
         _password.isNotEmpty &&
         _rePassword.isNotEmpty &&
         userModels.name.isNotEmpty &&
-        userModels.surname.isNotEmpty) {
+        userModels.surname.isNotEmpty&&isChecked.value==true) {
       if (_password == _rePassword) {
         try {
           var user = await _auth.createUserWithEmailAndPassword(
@@ -127,7 +131,21 @@ class RegisterManager extends ValueNotifier<String> {
           duration: const Duration(seconds: 2),
         ).show(context);
       }
-    } else {
+    }else if(
+      userModels.email.isNotEmpty &&
+        _password.isNotEmpty &&
+        _rePassword.isNotEmpty &&
+        userModels.name.isNotEmpty &&
+        userModels.surname.isNotEmpty&&isChecked.value==false
+    ){
+      Flushbar(
+        title: StringConstants.unsuccessful,
+        message: StringConstants.protocolError,
+        duration: const Duration(seconds: 2),
+      ).show(context);
+
+    } 
+    else {
       Flushbar(
         title: StringConstants.unsuccessful,
         message: StringConstants.spaceGapError,

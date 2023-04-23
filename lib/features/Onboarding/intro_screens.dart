@@ -1,9 +1,9 @@
 import 'package:barcodesearch/features/Searching/home_screen.dart';
-import 'package:barcodesearch/Screens/login/login_screen.dart';
 import 'package:barcodesearch/routing/route_constants.dart';
-import 'package:barcodesearch/Shared/Widgets/onboarding_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../common_widgets/onboarding_widget.dart';
 
 class IntroScreen extends StatefulWidget {
   final List<OnBoardingData> onbordingDataList;

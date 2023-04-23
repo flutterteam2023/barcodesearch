@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
 import 'package:barcodesearch/common_widgets/input_field.dart';
+import 'package:barcodesearch/features/Authentication/login_manager.dart';
 import 'package:barcodesearch/utils/theme.dart';
 import 'package:barcodesearch/features/Authentication/register_manager.dart';
 
@@ -135,27 +136,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      isChecked = !isChecked;
-                    });
+                    // setState(() {
+                    //   isChecked = !isChecked;
+                    // });
+                    RegisterManager().checked();
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: isChecked ? primaryBlue : Colors.transparent,
-                      borderRadius: BorderRadius.circular(4),
-                      border: isChecked
-                          ? null
-                          : Border.all(color: textGrey, width: 1.5),
-                    ),
-                    width: 20,
-                    height: 20,
-                    child: isChecked
-                        ? const Icon(
-                            Icons.check,
-                            size: 20,
-                            color: Colors.white,
-                          )
-                        : null,
+                  child: ValueListenableBuilder(
+                   valueListenable: RegisterManager(),
+                    builder: (context, _,__) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: RegisterManager().isChecked.value ? primaryBlue : Colors.transparent,
+                          borderRadius: BorderRadius.circular(4),
+                          border: RegisterManager().isChecked.value
+                              ? null
+                              : Border.all(color: textGrey, width: 1.5),
+                        ),
+                        width: 20,
+                        height: 20,
+                        child: RegisterManager().isChecked.value
+                            ? const Icon(
+                                Icons.check,
+                                size: 20,
+                                color: Colors.white,
+                              )
+                            : null,
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(
