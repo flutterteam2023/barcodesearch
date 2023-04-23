@@ -108,10 +108,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 18),
                     ElevatedButton(
-                        onPressed: () {
-                          context.pushNamed(APP_PAGE.onboarding.toName);
-                        },
-                        child: const Text("Go Onboarding screens")),
+                      onPressed: () {
+                        context.pushNamed(APP_PAGE.onboarding.toName);
+                      },
+                      child: const Text('Go Onboarding screens'),
+                    ),
                     SizedBox(
                       height: 60,
                       child: ValueListenableBuilder(
@@ -128,10 +129,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ProductList().reset();
                                 await BarcodeSearchingService()
                                     .searchInitiliaze(
-                                        text: searchController.text);
+                                  text: searchController.text,
+                                );
                                 await NameSearchingService()
                                     .searchInitiliaze(
-                                        text: searchController.text)
+                                  text: searchController.text,
+                                )
                                     .then((value) {
                                   context.pushNamed(
                                     APP_PAGE.results.toName,
