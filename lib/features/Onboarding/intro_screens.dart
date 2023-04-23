@@ -1,3 +1,4 @@
+import 'package:barcodesearch/features/Onboarding/onboarding_widget.dart';
 import 'package:barcodesearch/features/Searching/home_screen.dart';
 
 
@@ -7,7 +8,6 @@ import 'package:barcodesearch/routing/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../common_widgets/onboarding_widget.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen(
