@@ -1,12 +1,17 @@
+import 'dart:ui';
+
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
 import 'package:barcodesearch/common_widgets/input_field.dart';
 import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/dialog.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/login.dart';
 import 'package:barcodesearch/features/Authentication/login_manager.dart';
+import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/features/Searching/Service/barcode_searching_service.dart';
 import 'package:barcodesearch/features/Searching/Service/name_searching_service.dart';
 import 'package:barcodesearch/features/Searching/Values/product_list.dart';
+import 'package:barcodesearch/features/Searching/details_sheet.dart';
 import 'package:barcodesearch/routing/route_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +19,7 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -107,12 +113,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 18),
-                    ElevatedButton(
+/*                     ElevatedButton(
                       onPressed: () {
                         context.pushNamed(APP_PAGE.onboarding.toName);
                       },
                       child: const Text('Go Onboarding screens'),
                     ),
+                    ElevatedButton(
+                      onPressed: () {
+                        showDetailsSheet(
+                          context: context,
+                          product: ProductModel(),
+                        );
+                      },
+                      child: const Text('Show Modal Bottom Sheet'),
+                    ), */
                     SizedBox(
                       height: 60,
                       child: ValueListenableBuilder(
@@ -127,6 +142,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             function: () async {
                               if (searchController.text.isNotEmpty) {
                                 ProductList().reset();
+                                BarcodeSearchingService.isLastPage = false;
+                                BarcodeSearchingService.lastDocument = null;
+                                NameSearchingService.isLastPage = false;
+                                NameSearchingService.lastDocument = null;
                                 await BarcodeSearchingService()
                                     .searchInitiliaze(
                                   text: searchController.text,

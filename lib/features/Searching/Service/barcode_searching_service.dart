@@ -35,7 +35,10 @@ class BarcodeSearchingService {
           if (value.docs.length < pageSize) {
             isLastPage = true;
           }
+
           lastDocument = value.docs.last;
+        } else {
+          isLastPage = true;
         }
       },
     );
@@ -71,7 +74,10 @@ class BarcodeSearchingService {
               if (value.docs.length < pageSize) {
                 isLastPage = true;
               }
+
               lastDocument = value.docs.last;
+            } else {
+              isLastPage = true;
             }
           },
         );

@@ -36,6 +36,8 @@ class NameSearchingService {
             isLastPage = true;
           }
           lastDocument = value.docs.last;
+        } else {
+          isLastPage = true;
         }
       },
     );
@@ -67,7 +69,10 @@ class NameSearchingService {
               if (value.docs.length < pageSize) {
                 isLastPage = true;
               }
+
               lastDocument = value.docs.last;
+            } else {
+              isLastPage = true;
             }
           },
         );

@@ -12,3 +12,9 @@ karekod okutma
 barkod yazdırma veya görsel olarak indirme
 in app purchase
 dil desteği
+
+ürün adını yazdırma
+barkod okutma
+fotoğraf isteme
+öneriniz onaylanırsa 25 kredi ödül alacaksınız.
+flutter_barcode_scanner

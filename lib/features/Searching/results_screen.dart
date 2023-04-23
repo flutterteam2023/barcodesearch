@@ -1,9 +1,12 @@
+import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/features/Searching/Service/barcode_searching_service.dart';
 import 'package:barcodesearch/features/Searching/Service/name_searching_service.dart';
 import 'package:barcodesearch/features/Searching/Values/product_list.dart';
+import 'package:barcodesearch/features/Searching/details_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
@@ -20,6 +23,14 @@ class _ResultScreenState extends State<ResultScreen> {
   @override
   void initState() {
     _scrollController = ScrollController();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent ==
+          _scrollController.offset) {
+        BarcodeSearchingService().loadMoreData(text: widget.searchedText);
+        NameSearchingService().loadMoreData(text: widget.searchedText);
+      }
+    });
     super.initState();
   }
 
@@ -48,6 +59,7 @@ class _ResultScreenState extends State<ResultScreen> {
           return AnimationLimiter(
             child: NotificationListener(
               onNotification: (t) {
+                /*
                 final nextPageTrigger =
                     0.8 * _scrollController.positions.last.maxScrollExtent;
 
@@ -66,43 +78,81 @@ class _ResultScreenState extends State<ResultScreen> {
                     });
                   }
                 }
+                */
                 return true;
               },
               child: ListView.builder(
                 controller: _scrollController,
-                itemCount: ProductList().length,
+                itemCount: ProductList().length + 1,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return AnimationConfiguration.staggeredList(
-                    position: index,
-                    delay: const Duration(milliseconds: 100),
-                    child: SlideAnimation(
-                      duration: const Duration(milliseconds: 1500),
-                      curve: Curves.fastLinearToSlowEaseIn,
-                      horizontalOffset: 30,
-                      verticalOffset: 300,
-                      child: FlipAnimation(
-                        duration: const Duration(milliseconds: 2500),
+                  if (BarcodeSearchingService.isLastPage &&
+                      NameSearchingService.isLastPage &&
+                      ProductList().length == 0) {
+                    return const Center(
+                      child: Text('ürün bulunamadı.'),
+                    );
+                  } else if (BarcodeSearchingService.isLastPage &&
+                      NameSearchingService.isLastPage &&
+                      index == ProductList().length) {
+                    return Center(
+                      child: Text('${ProductList().length} ürün bulundu.'),
+                    );
+                  } else if (index == ProductList().length) {
+                    return SizedBox.square(
+                      dimension: 50,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              CircularProgressIndicator(),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    final product = ProductList().getIndex(index);
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      delay: const Duration(milliseconds: 100),
+                      child: SlideAnimation(
+                        duration: const Duration(milliseconds: 1500),
                         curve: Curves.fastLinearToSlowEaseIn,
-                        flipAxis: FlipAxis.y,
-                        child: Column(
-                          children: [
-                            const Divider(),
-                            ListTile(
-                              title: Text(
-                                ProductList().getIndex(index).name ?? '',
-                                style: GoogleFonts.poppins(),
-                              ),
-                              trailing: const Icon(
-                                Iconsax.arrow_right_3,
-                              ),
+                        horizontalOffset: 30,
+                        verticalOffset: 300,
+                        child: FlipAnimation(
+                          duration: const Duration(milliseconds: 2500),
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          flipAxis: FlipAxis.y,
+                          child: Bounceable(
+                            onTap: () {
+                              showDetailsSheet(
+                                context: context,
+                                product: product,
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                const Divider(),
+                                ListTile(
+                                  title: Text(
+                                    product.name ?? '',
+                                    style: GoogleFonts.poppins(),
+                                  ),
+                                  trailing: const Icon(
+                                    Iconsax.arrow_right_3,
+                                  ),
+                                ),
+                                const Divider(),
+                              ],
                             ),
-                            const Divider(),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
+                    );
+                  }
                 },
               ),
             ),

@@ -6,6 +6,7 @@ import 'package:barcodesearch/firebase_options.dart';
 import 'package:barcodesearch/features/Searching/Values/product_list.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 Future<void> main() async {
@@ -23,79 +24,73 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(
-      builder:(context,orientation,deviceType) {
+      builder: (context, orientation, deviceType) {
         return MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Team',
-        theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'Georgia',
-        textTheme: const TextTheme(
-        headlineMedium: TextStyle(
-        fontSize: 150,
-        fontFamily: 'Hind',
-        color: Color(0xFFFFFFFF),
-        fontWeight: FontWeight.w300,
-        ),
-        displayMedium: TextStyle(
-        fontSize: 20,
-        fontFamily: 'Hind',
-        color: Color(0xE0FFFFFF),
-        ),
-        displaySmall: TextStyle(
-        fontSize: 14,
-        fontFamily: 'Hind',
-        color: Colors.black54,
-        ),
-        displayLarge: TextStyle(
-        fontSize: 40,
-        fontWeight: FontWeight.w300,
-        color: Colors.black,
-        fontFamily: 'Hind',
-        ),
-        titleLarge: TextStyle(
-        fontSize: 36,
-        color: Colors.white,
-        fontFamily: 'Hind',
-        ),
-        bodyMedium: TextStyle(
-        fontSize: 20,
-        fontFamily: 'Hind',
-        color: Colors.black,
-        ),
-        bodyLarge: TextStyle(
-        fontSize: 14,
-        fontFamily: 'Hind',
-        color: Colors.white,
-        ),
-        ),
-        appBarTheme:
-        const AppBarTheme(backgroundColor: Color.fromARGB(255, 33, 33, 33)),
-        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-        foregroundColor: Colors.orange,
-        ),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        disabledBackgroundColor: Colors.red,
-        shadowColor: Colors.green,
-        side: const BorderSide(color: Colors.grey),
-        ),
-        ),
-        outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-        foregroundColor: Colors.purple,
-        backgroundColor: Colors.green,
-        ),
-        ),
-        ),
-        routerConfig: AppRouter().router,
-
-        );} );
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Team',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            textTheme: TextTheme(
+              headlineMedium: GoogleFonts.poppins(
+                fontSize: 150,
+                color: const Color(0xFFFFFFFF),
+                fontWeight: FontWeight.w300,
+              ),
+              displayMedium: GoogleFonts.poppins(
+                fontSize: 20,
+                color: const Color(0xE0FFFFFF),
+              ),
+              displaySmall: GoogleFonts.poppins(
+                fontSize: 14,
+                color: Colors.black54,
+              ),
+              displayLarge: GoogleFonts.poppins(
+                fontSize: 40,
+                fontWeight: FontWeight.w300,
+                color: Colors.black,
+              ),
+              titleLarge: GoogleFonts.poppins(
+                fontSize: 36,
+                color: Colors.white,
+              ),
+              bodyMedium: GoogleFonts.poppins(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+              bodyLarge: GoogleFonts.poppins(
+                fontSize: 14,
+                color: Colors.white,
+              ),
+            ),
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Color.fromARGB(255, 33, 33, 33),
+            ),
+            scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.orange,
+              ),
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                disabledBackgroundColor: Colors.red,
+                shadowColor: Colors.green,
+                side: const BorderSide(color: Colors.grey),
+              ),
+            ),
+            outlinedButtonTheme: OutlinedButtonThemeData(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.purple,
+                backgroundColor: Colors.green,
+              ),
+            ),
+          ),
+          routerConfig: AppRouter().router,
+        );
+      },
+    );
   }
 }
 
