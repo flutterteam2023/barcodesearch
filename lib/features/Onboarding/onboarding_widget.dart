@@ -1,8 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class OnBoardingData extends StatefulWidget {
-  const OnBoardingData({
+   OnBoardingData({
     required this.image,
     required this.desc,
     super.key,
@@ -20,27 +21,22 @@ class _OnBoardingDataState extends State<OnBoardingData> {
 
     final desc = widget.desc;
     return Container(
-      alignment: Alignment.center,
+
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+
         children: <Widget>[
           SizedBox(
-            height: 300,
-            width: 300,
+            height: 45.h,
+            width: 45.w,
             child: image,
           ),
-          const SizedBox(
-            height: 12,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
+            Text(
               desc,
               softWrap: true,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-          ),
+
         ],
       ),
     );
