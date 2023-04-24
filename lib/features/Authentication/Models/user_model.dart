@@ -10,12 +10,14 @@ class UserModel {
   String name;
   String surname;
   int credit;
+  String? uid;
   UserModel({
     required this.email,
     required this.createdAt,
     required this.name,
     required this.surname,
     required this.credit,
+    this.uid,
   });
 
   UserModel copyWith({
@@ -30,7 +32,7 @@ class UserModel {
       createdAt: createdAt ?? this.createdAt,
       name: name ?? this.name,
       surname: surname ?? this.surname,
-      credit: credit ?? this.credit,
+      credit: credit ?? this.credit, uid: '',
     );
   }
 

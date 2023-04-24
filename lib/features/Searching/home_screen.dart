@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
 import 'package:barcodesearch/common_widgets/input_field.dart';
+import 'package:barcodesearch/features/Ads/Controller/credit_manager.dart';
 import 'package:barcodesearch/features/Ads/reward_ads_screen.dart';
 import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/dialog.dart';
@@ -34,6 +35,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
   BannerAd? _bannerAd;
   RewardedAd? _rewardedAd;
   late TextEditingController searchController;
@@ -101,7 +103,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          print(MyUser().value!.uid);
+        },
         label: Text(
           'Yeni Öneri',
           style: GoogleFonts.poppins(
@@ -253,7 +257,8 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               _rewardedAd?.show(
                 onUserEarnedReward: (_, reward) {
-                  RegisterManager().credit.value =  RegisterManager().credit.value + (11-reward.amount.toInt());
+                  MyUser().value!.credit =  MyUser().value!.credit+ (11-reward.amount.toInt());
+                  CreditManager().creditAdd(MyUser().value!.credit);
 
                 },
               );
@@ -338,8 +343,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 12,
                           ),
                         ),
-                        Text(
-                          '${RegisterManager().credit.value}',
+                       Text(
+                          '${MyUser().getCredit()}',
                           style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontSize: 16,

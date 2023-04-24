@@ -56,6 +56,9 @@ class LoginManager extends ValueNotifier<String> {
         message: StringConstants.signIn,
         duration: const Duration(seconds: 3),
       ).show(context);
+      context.pushNamed(
+        APP_PAGE.home.toName,
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code.toString() == StringConstants.invalidEmail) {
         Flushbar(
@@ -96,11 +99,6 @@ class LoginManager extends ValueNotifier<String> {
         message: StringConstants.goToLink,
         duration: const Duration(seconds: 3),
       ).show(context);
-     
-     
-     
-          
-
     } on FirebaseAuthException catch (e) {
       if (e.code.toString() == StringConstants.unKnown) {
         Flushbar(
@@ -125,15 +123,13 @@ class LoginManager extends ValueNotifier<String> {
           title: StringConstants.internetWarningMessage,
           duration: const Duration(seconds: 2),
         );
-      } else if(e.code.toString()==StringConstants.missingEmail){
+      } else if (e.code.toString() == StringConstants.missingEmail) {
         Flushbar(
           title: StringConstants.unsuccessful,
           message: StringConstants.emailIsMissing,
           duration: const Duration(seconds: 3),
         ).show(context);
-
-      } 
-      else {
+      } else {
         Flushbar(
           title: StringConstants.unsuccessful,
           message: StringConstants.limitError,
