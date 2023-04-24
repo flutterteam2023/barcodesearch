@@ -16,6 +16,14 @@ class CreditManager{
     }
 
   }
+  void creditIncrement(int reward){
+     MyUser().value!.credit =  MyUser().value!.credit+ (11-reward);
+     CreditManager().creditAdd(MyUser().value!.credit);
+  }
+  void creditDiscrememnt(){
+    MyUser().value!.credit = MyUser().value!.credit - 1;
+    CreditManager().creditAdd(MyUser().value!.credit);
+  }
 
 
 }

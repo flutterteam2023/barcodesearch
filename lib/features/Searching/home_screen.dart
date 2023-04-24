@@ -257,8 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               _rewardedAd?.show(
                 onUserEarnedReward: (_, reward) {
-                  MyUser().value!.credit =  MyUser().value!.credit+ (11-reward.amount.toInt());
-                  CreditManager().creditAdd(MyUser().value!.credit);
+                 CreditManager().creditIncrement(reward.amount.toInt());
 
                 },
               );
