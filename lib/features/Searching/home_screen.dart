@@ -8,6 +8,7 @@ import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/dialog.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/login.dart';
 import 'package:barcodesearch/features/Authentication/login_manager.dart';
+import 'package:barcodesearch/features/Authentication/register_manager.dart';
 import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/features/Searching/Service/barcode_searching_service.dart';
 import 'package:barcodesearch/features/Searching/Service/name_searching_service.dart';
@@ -251,7 +252,10 @@ class _HomeScreenState extends State<HomeScreen> {
           Bounceable(
             onTap: () {
               _rewardedAd?.show(
-                onUserEarnedReward: (_, reward) {},
+                onUserEarnedReward: (_, reward) {
+                  RegisterManager().credit.value =  RegisterManager().credit.value + (11-reward.amount.toInt());
+
+                },
               );
             },
             child: Container(
@@ -335,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Text(
-                          '12',
+                          '${RegisterManager().credit.value}',
                           style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontSize: 16,
