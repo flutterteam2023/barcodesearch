@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
 import 'package:barcodesearch/common_widgets/input_field.dart';
+import 'package:barcodesearch/features/Ads/reward_ads_screen.dart';
 import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/dialog.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/login.dart';
@@ -18,8 +19,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sizer/sizer.dart';
+
+import '../Ads/Controller/ad_helper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,16 +33,65 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  BannerAd? _bannerAd;
+  RewardedAd? _rewardedAd;
   late TextEditingController searchController;
+
+  void _loadRewardedAd() {
+    RewardedAd.load(
+      adUnitId: AdHelper.rewardedAdUnitId,
+      request: AdRequest(),
+      rewardedAdLoadCallback: RewardedAdLoadCallback(
+        onAdLoaded: (ad) {
+          ad.fullScreenContentCallback = FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (ad) {
+              setState(() {
+                ad.dispose();
+                _rewardedAd = null;
+              });
+              _loadRewardedAd();
+            },
+          );
+
+          setState(() {
+            _rewardedAd = ad;
+          });
+        },
+        onAdFailedToLoad: (err) {
+          print('Failed to load a rewarded ad: ${err.message}');
+        },
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          print('Failed to load a banner ad: ${err.message}');
+          ad.dispose();
+        },
+      ),
+    ).load();
+    _loadRewardedAd();
+
     searchController = TextEditingController();
   }
 
   @override
   void dispose() {
     searchController.dispose();
+    _bannerAd?.dispose();
     super.dispose();
   }
 
@@ -168,6 +221,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
+                    SizedBox(
+                      height: 150,
+                    ),
+                    if (_bannerAd != null)
+                      Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            width: _bannerAd!.size.width.toDouble(),
+                            height: _bannerAd!.size.height.toDouble(),
+                            child: AdWidget(ad: _bannerAd!),
+                          ))
                   ],
                 ),
               ),
@@ -184,40 +248,47 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            width: 60,
-            height: 60,
-            margin: const EdgeInsets.only(right: 12),
-            padding: const EdgeInsets.symmetric(
-              vertical: 5,
-              horizontal: 10,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.indigo,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Icon(
-                  Iconsax.play_circle,
-                  size: 16,
-                  color: Colors.white,
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'İzle',
-                  style: GoogleFonts.poppins(
+          Bounceable(
+            onTap: () {
+              _rewardedAd?.show(
+                onUserEarnedReward: (_, reward) {},
+              );
+            },
+            child: Container(
+              width: 60,
+              height: 60,
+              margin: const EdgeInsets.only(right: 12),
+              padding: const EdgeInsets.symmetric(
+                vertical: 5,
+                horizontal: 10,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.indigo,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Iconsax.play_circle,
+                    size: 16,
                     color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    'İzle',
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(

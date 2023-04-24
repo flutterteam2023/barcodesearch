@@ -6,6 +6,7 @@ enum APP_PAGE {
   results,
   onboarding,
   login,
+  rewardAds
 }
 
 extension AppPageExtension on APP_PAGE {
@@ -21,6 +22,8 @@ extension AppPageExtension on APP_PAGE {
         return 'onboarding';
       case APP_PAGE.login:
         return 'login';
+      case APP_PAGE.rewardAds:
+        return 'rewardAds';
     }
   }
 
@@ -36,6 +39,8 @@ extension AppPageExtension on APP_PAGE {
         return 'onboarding';
       case APP_PAGE.login:
         return 'login';
+      case APP_PAGE.rewardAds:
+        return 'rewardAds';
     }
   }
 }
