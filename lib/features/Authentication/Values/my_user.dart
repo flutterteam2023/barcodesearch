@@ -9,7 +9,6 @@ class MyUser extends ValueNotifier<UserModel?> {
   factory MyUser() => _shared;
   MyUser._sharedInstance() : super(null);
   static final MyUser _shared = MyUser._sharedInstance();
-  
 
   Future<void> get getUserData async {
     final user = FirebaseAuth.instance.currentUser;
@@ -28,6 +27,12 @@ class MyUser extends ValueNotifier<UserModel?> {
     }
   }
 
+  void creditUpdate(int newValue) {
+    final myUser = value;
+    myUser?.credit = newValue;
+    notifyListeners();
+  }
+
   bool isNull() {
     final myUser = value;
     return myUser == null;
@@ -37,10 +42,10 @@ class MyUser extends ValueNotifier<UserModel?> {
     final myUser = value;
     return myUser?.name;
   }
-  String? getCredit(){
-    final myUser = value;
-    return myUser?.credit.toString();
 
+  int? getCredit() {
+    final myUser = value;
+    return myUser?.credit;
   }
 
   void setNull() {

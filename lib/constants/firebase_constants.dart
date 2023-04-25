@@ -3,6 +3,7 @@ enum FirebaseConstants {
   barcodeArrayField,
   nameArrayField,
   usersCollection,
+  creditField,
 }
 
 extension FirebaseContantsName on FirebaseConstants {
@@ -16,6 +17,8 @@ extension FirebaseContantsName on FirebaseConstants {
         return 'nameArray';
       case FirebaseConstants.usersCollection:
         return 'users';
+      case FirebaseConstants.creditField:
+        return 'credit';
     }
   }
 }

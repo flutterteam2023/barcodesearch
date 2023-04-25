@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../../constants/firebase_constants.dart';
 
 class BarcodeSearchingService {
-  FirebaseFirestore db = FirebaseFirestore.instance;
   static DocumentSnapshot? lastDocument;
   static bool isLastPage = false;
   final pageSize = 10;

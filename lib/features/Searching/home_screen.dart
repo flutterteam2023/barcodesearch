@@ -1,8 +1,11 @@
 import 'dart:ui';
 
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:barcodesearch/app_config.dart';
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
 import 'package:barcodesearch/common_widgets/input_field.dart';
+import 'package:barcodesearch/constants/authentication_constant.dart';
+import 'package:barcodesearch/constants/searching_constants.dart';
 import 'package:barcodesearch/features/Ads/Controller/credit_manager.dart';
 import 'package:barcodesearch/features/Ads/reward_ads_screen.dart';
 import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
@@ -15,6 +18,7 @@ import 'package:barcodesearch/features/Searching/Service/barcode_searching_servi
 import 'package:barcodesearch/features/Searching/Service/name_searching_service.dart';
 import 'package:barcodesearch/features/Searching/Values/product_list.dart';
 import 'package:barcodesearch/features/Searching/details_sheet.dart';
+import 'package:barcodesearch/locator.dart';
 import 'package:barcodesearch/routing/route_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +39,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
   BannerAd? _bannerAd;
   RewardedAd? _rewardedAd;
   late TextEditingController searchController;
@@ -43,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _loadRewardedAd() {
     RewardedAd.load(
       adUnitId: AdHelper.rewardedAdUnitId,
-      request: AdRequest(),
+      request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
           ad.fullScreenContentCallback = FullScreenContentCallback(
@@ -72,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
-      request: AdRequest(),
+      request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
@@ -99,6 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   ValueNotifier<String> searchValue = ValueNotifier('');
+
+  final searchingConstants = locator<SearchingConstants>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
           print(MyUser().value!.uid);
         },
         label: Text(
-          'Yeni Öneri',
+          searchingConstants.suggestions,
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w500,
           ),
@@ -134,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Hoşgeldin ${MyUser().getName()}',
+                            '${searchingConstants.welcome} ${MyUser().getName()}',
                             style: GoogleFonts.poppins(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
@@ -142,7 +148,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Row(
                             children: [
-                              const Text('Çıkış Yap'),
+                              Text(
+                                StringConstants.logout,
+                                style: GoogleFonts.poppins(fontSize: 18),
+                              ),
                               IconButton(
                                 onPressed: () async {
                                   await LoginManager().signOut();
@@ -159,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 60,
                       child: InputField(
-                        hintText: 'Ürün ismi veya barkod ara',
+                        hintText: searchingConstants.searchText,
                         suffixIcon: const Icon(
                           Iconsax.scan_barcode,
                           size: 26,
@@ -226,17 +235,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 150,
                     ),
                     if (_bannerAd != null)
                       Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            width: _bannerAd!.size.width.toDouble(),
-                            height: _bannerAd!.size.height.toDouble(),
-                            child: AdWidget(ad: _bannerAd!),
-                          ))
+                        alignment: Alignment.topCenter,
+                        child: SizedBox(
+                          width: _bannerAd!.size.width.toDouble(),
+                          height: _bannerAd!.size.height.toDouble(),
+                          child: AdWidget(ad: _bannerAd!),
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -257,8 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               _rewardedAd?.show(
                 onUserEarnedReward: (_, reward) {
-                 CreditManager().creditIncrement(reward.amount.toInt());
-
+                  CreditManager().creditIncrement(reward.amount.toInt());
                 },
               );
             },
@@ -277,7 +286,6 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Icon(
                     Iconsax.play_circle,
@@ -288,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 3,
                   ),
                   Text(
-                    'İzle',
+                    searchingConstants.watch,
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 12,
@@ -303,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 60,
             child: Center(
               child: Text(
-                'BARKOD ARAMA',
+                APP_CONFIG.appTitle,
                 style: GoogleFonts.libreBarcode128Text(
                   color: Colors.grey[850],
                   fontSize: 40,
@@ -333,22 +341,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   : Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Kredi',
+                          searchingConstants.credit,
                           style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontSize: 12,
                           ),
                         ),
-                       Text(
-                          '${MyUser().getCredit()}',
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        ValueListenableBuilder(
+                          valueListenable: MyUser(),
+                          builder: (context, value, widget) {
+                            return Text(
+                              '${MyUser().getCredit()}',
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),

@@ -1,31 +1,25 @@
-import 'dart:ffi';
-
 import 'package:another_flushbar/flushbar.dart';
+import 'package:barcodesearch/constants/authentication_constant.dart';
 import 'package:barcodesearch/constants/collections_constants.dart';
-import 'package:barcodesearch/features/Authentication/Models/user_model.dart';
-import 'package:barcodesearch/features/Searching/Models/product_model.dart';
-import 'package:barcodesearch/features/Searching/home_screen.dart';
-
-import 'package:barcodesearch/routing/route_constants.dart';
 import 'package:barcodesearch/constants/firebase_constants.dart';
-import 'package:barcodesearch/constants/string_constant.dart';
+import 'package:barcodesearch/features/Authentication/Models/user_model.dart';
 import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
+import 'package:barcodesearch/features/Authentication/login_manager.dart';
+import 'package:barcodesearch/routing/route_constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'login_manager.dart';
-
 class RegisterManager extends ValueNotifier<String> {
   factory RegisterManager() => _shared;
-  RegisterManager._sharedInstance() : super("");
+  RegisterManager._sharedInstance() : super('');
   static final RegisterManager _shared = RegisterManager._sharedInstance();
-  ValueNotifier<String> name = ValueNotifier<String>("");
-  ValueNotifier<String> surname = ValueNotifier<String>("");
-  ValueNotifier<String> email = ValueNotifier<String>("");
-  ValueNotifier<String> password = ValueNotifier<String>("");
-  ValueNotifier<String> rePassword = ValueNotifier<String>("");
+  ValueNotifier<String> name = ValueNotifier<String>('');
+  ValueNotifier<String> surname = ValueNotifier<String>('');
+  ValueNotifier<String> email = ValueNotifier<String>('');
+  ValueNotifier<String> password = ValueNotifier<String>('');
+  ValueNotifier<String> rePassword = ValueNotifier<String>('');
   ValueNotifier<int> credit = ValueNotifier<int>(12);
   ValueNotifier<DateTime> createdAt = ValueNotifier<DateTime>(DateTime.now());
   ValueNotifier<bool> isChecked = ValueNotifier<bool>(false);
@@ -33,7 +27,7 @@ class RegisterManager extends ValueNotifier<String> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  void checked(){
+  void checked() {
     isChecked.value = !isChecked.value;
     notifyListeners();
   }
@@ -61,7 +55,8 @@ class RegisterManager extends ValueNotifier<String> {
         _password.isNotEmpty &&
         _rePassword.isNotEmpty &&
         userModels.name.isNotEmpty &&
-        userModels.surname.isNotEmpty&&isChecked.value==true) {
+        userModels.surname.isNotEmpty &&
+        isChecked.value == true) {
       if (_password == _rePassword) {
         try {
           var user = await _auth.createUserWithEmailAndPassword(
@@ -70,11 +65,11 @@ class RegisterManager extends ValueNotifier<String> {
           await FireCollection.collection(FirebaseConstants.usersCollection)
               .doc(user.user?.uid)
               .set({
-            "name": userModels.name,
-            "surname": userModels.surname,
-            "email": userModels.email,
-            "credit": userModels.credit,
-            "createdAt": userModels.createdAt
+            'name': userModels.name,
+            'surname': userModels.surname,
+            'email': userModels.email,
+            'credit': userModels.credit,
+            'createdAt': userModels.createdAt
           }).then((value) async {
             await MyUser().getUserData;
           });
@@ -89,12 +84,12 @@ class RegisterManager extends ValueNotifier<String> {
 
           createUserControl.value = false;
 
-          email.value = "";
-          password.value = "";
-          rePassword.value = "";
-          LoginManager().email.value = "";
-          LoginManager().password.value = "";
-          LoginManager().forgetPassword.value = "";
+          email.value = '';
+          password.value = '';
+          rePassword.value = '';
+          LoginManager().email.value = '';
+          LoginManager().password.value = '';
+          LoginManager().forgetPassword.value = '';
 
           return user.user;
         } on FirebaseAuthException catch (e) {
@@ -131,21 +126,18 @@ class RegisterManager extends ValueNotifier<String> {
           duration: const Duration(seconds: 2),
         ).show(context);
       }
-    }else if(
-      userModels.email.isNotEmpty &&
+    } else if (userModels.email.isNotEmpty &&
         _password.isNotEmpty &&
         _rePassword.isNotEmpty &&
         userModels.name.isNotEmpty &&
-        userModels.surname.isNotEmpty&&isChecked.value==false
-    ){
+        userModels.surname.isNotEmpty &&
+        isChecked.value == false) {
       Flushbar(
         title: StringConstants.unsuccessful,
         message: StringConstants.protocolError,
         duration: const Duration(seconds: 2),
       ).show(context);
-
-    } 
-    else {
+    } else {
       Flushbar(
         title: StringConstants.unsuccessful,
         message: StringConstants.spaceGapError,
