@@ -266,8 +266,10 @@ class _HomeScreenState extends State<HomeScreen> {
           Bounceable(
             onTap: () {
               _rewardedAd?.show(
-                onUserEarnedReward: (_, reward) {
-                  CreditManager().creditIncrement(reward.amount.toInt());
+                onUserEarnedReward: (_, reward) async {
+                  int i = reward.amount.toInt();
+                  await CreditManager()
+                      .creditIncrement(APP_CONFIG.adRewardAmount);
                 },
               );
             },

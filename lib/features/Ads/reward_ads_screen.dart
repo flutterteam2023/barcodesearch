@@ -1,7 +1,6 @@
+import 'package:barcodesearch/features/Ads/Controller/ad_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-import 'Controller/ad_helper.dart';
 
 class RewardAdsScreen extends StatefulWidget {
   const RewardAdsScreen({super.key});
@@ -21,7 +20,7 @@ class _RewardAdsScreenState extends State<RewardAdsScreen> {
   void _loadRewardedAd() {
     RewardedAd.load(
       adUnitId: AdHelper.rewardedAdUnitId,
-      request: AdRequest(),
+      request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
           ad.fullScreenContentCallback = FullScreenContentCallback(
@@ -44,45 +43,44 @@ class _RewardAdsScreenState extends State<RewardAdsScreen> {
       ),
     );
   }
+
   Widget? _buildFloatingActionButton() {
-  // TODO: Return a FloatingActionButton if a rewarded ad is available
-  return (_rewardedAd != null)
-      ? FloatingActionButton.extended(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text('Need a hint?'),
-                  content: Text('Watch an Ad to get a hint!'),
-                  actions: [
-                    TextButton(
-                      child: Text('cancel'.toUpperCase()),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    TextButton(
-                      child: Text('ok'.toUpperCase()),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        _rewardedAd?.show(
-                          onUserEarnedReward: (_, reward) {
-                            
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-          label: Text('Hint'),
-          icon: Icon(Icons.card_giftcard),
-        )
-      : null;
-}
+    // TODO: Return a FloatingActionButton if a rewarded ad is available
+    return (_rewardedAd != null)
+        ? FloatingActionButton.extended(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text('Need a hint?'),
+                    content: const Text('Watch an Ad to get a hint!'),
+                    actions: [
+                      TextButton(
+                        child: Text('cancel'.toUpperCase()),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      TextButton(
+                        child: Text('ok'.toUpperCase()),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _rewardedAd?.show(
+                            onUserEarnedReward: (_, reward) {},
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            label: const Text('Hint'),
+            icon: const Icon(Icons.card_giftcard),
+          )
+        : null;
+  }
 
   @override
   Widget build(BuildContext context) {

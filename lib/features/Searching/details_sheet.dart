@@ -65,7 +65,9 @@ void showDetailsSheet({
                         Bounceable(
                           onTap: () async {
                             if (!MyUser().isNull() &&
-                                isActiveBlur.value == true) {
+                                isActiveBlur.value == true &&
+                                (MyUser().getCredit() ?? 0) >=
+                                    APP_CONFIG.barcodeViewFee) {
                               await CreditManager()
                                   .creditDiscrememnt(APP_CONFIG.barcodeViewFee)
                                   .then((value) {

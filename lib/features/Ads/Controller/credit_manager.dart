@@ -14,7 +14,7 @@ class CreditManager {
   Future<void> creditIncrement(int incrementNumber) async {
     if (!MyUser().isNull()) {
       MyUser().creditUpdate(
-        (MyUser().getCredit() ?? 0) + (11 - incrementNumber),
+        (MyUser().getCredit() ?? 0) + incrementNumber,
       );
       await CreditManager().creditAdd(MyUser().value!.credit);
     }
