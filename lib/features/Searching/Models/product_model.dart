@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class ProductModel {
@@ -9,12 +10,16 @@ class ProductModel {
   String? photoURL;
   List<String>? nameArray;
   List<String>? barcodeArray;
+  List<String>? otherBarcodes;
+  Timestamp? createdAt;
   ProductModel({
     this.name,
     this.barcode,
     this.photoURL,
     this.nameArray,
     this.barcodeArray,
+    this.otherBarcodes,
+    this.createdAt,
   });
 
   ProductModel copyWith({
@@ -23,6 +28,8 @@ class ProductModel {
     String? photoURL,
     List<String>? nameArray,
     List<String>? barcodeArray,
+    List<String>? otherBarcodes,
+    Timestamp? createdAt,
   }) {
     return ProductModel(
       name: name ?? this.name,
@@ -30,6 +37,8 @@ class ProductModel {
       photoURL: photoURL ?? this.photoURL,
       nameArray: nameArray ?? this.nameArray,
       barcodeArray: barcodeArray ?? this.barcodeArray,
+      otherBarcodes: otherBarcodes ?? this.otherBarcodes,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -40,6 +49,8 @@ class ProductModel {
       'photoURL': photoURL,
       'nameArray': nameArray,
       'barcodeArray': barcodeArray,
+      'otherBarcodes': otherBarcodes,
+      'createdAt': createdAt,
     };
   }
 
@@ -49,11 +60,16 @@ class ProductModel {
       barcode: map['barcode'] != null ? map['barcode'] as String : null,
       photoURL: map['photoURL'] != null ? map['photoURL'] as String : null,
       nameArray: map['nameArray'] != null
-          ? List<String>.from((map['nameArray'] as List<dynamic>))
+          ? List<String>.from(map['nameArray'] as List<dynamic>)
           : null,
       barcodeArray: map['barcodeArray'] != null
-          ? List<String>.from((map['barcodeArray'] as List<dynamic>))
+          ? List<String>.from(map['barcodeArray'] as List<dynamic>)
           : null,
+      otherBarcodes: map['otherBarcodes'] != null
+          ? List<String>.from(map['otherBarcodes'] as List<dynamic>)
+          : null,
+      createdAt:
+          map['createdAt'] != null ? map['createdAt'] as Timestamp : null,
     );
   }
 
@@ -64,7 +80,7 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel(name: $name, barcode: $barcode, photoURL: $photoURL, nameArray: $nameArray, barcodeArray: $barcodeArray)';
+    return 'ProductModel(name: $name, barcode: $barcode, photoURL: $photoURL, nameArray: $nameArray, barcodeArray: $barcodeArray, otherBarcodes: $otherBarcodes)';
   }
 
   @override
@@ -75,6 +91,7 @@ class ProductModel {
         other.barcode == barcode &&
         other.photoURL == photoURL &&
         listEquals(other.nameArray, nameArray) &&
+        listEquals(other.otherBarcodes, otherBarcodes) &&
         listEquals(other.barcodeArray, barcodeArray);
   }
 
@@ -84,6 +101,7 @@ class ProductModel {
         barcode.hashCode ^
         photoURL.hashCode ^
         nameArray.hashCode ^
+        otherBarcodes.hashCode ^
         barcodeArray.hashCode;
   }
 }

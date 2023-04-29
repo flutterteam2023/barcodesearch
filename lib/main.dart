@@ -1,9 +1,11 @@
 import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
 import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/features/Searching/Values/product_list.dart';
+import 'package:barcodesearch/features/Searching/string.dart';
 import 'package:barcodesearch/firebase_options.dart';
 import 'package:barcodesearch/locator.dart';
 import 'package:barcodesearch/routing/routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,10 +14,11 @@ import 'package:sizer/sizer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await MobileAds.instance.initialize();
+  //await MobileAds.instance.initialize();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   await MyUser().getUserData;
   setupLocator();
   runApp(const MyApp());

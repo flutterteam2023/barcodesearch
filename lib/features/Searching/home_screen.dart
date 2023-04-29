@@ -215,11 +215,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 NameSearchingService.lastDocument = null;
                                 await BarcodeSearchingService()
                                     .searchInitiliaze(
-                                  text: searchController.text,
+                                  text: searchController.text
+                                      .replaceAll(',', '.'),
                                 );
                                 await NameSearchingService()
                                     .searchInitiliaze(
-                                  text: searchController.text,
+                                  text: searchController.text
+                                      .replaceAll(',', '.'),
                                 )
                                     .then((value) {
                                   context.pushNamed(
@@ -267,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               _rewardedAd?.show(
                 onUserEarnedReward: (_, reward) async {
-                  int i = reward.amount.toInt();
+                  //final i = reward.amount.toInt();
                   await CreditManager()
                       .creditIncrement(APP_CONFIG.adRewardAmount);
                 },

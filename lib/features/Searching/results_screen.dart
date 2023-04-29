@@ -27,8 +27,12 @@ class _ResultScreenState extends State<ResultScreen> {
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent ==
           _scrollController.offset) {
-        BarcodeSearchingService().loadMoreData(text: widget.searchedText);
-        NameSearchingService().loadMoreData(text: widget.searchedText);
+        BarcodeSearchingService().loadMoreData(
+          text: widget.searchedText.replaceAll(',', '.'),
+        );
+        NameSearchingService().loadMoreData(
+          text: widget.searchedText.replaceAll(',', '.'),
+        );
       }
     });
     super.initState();
