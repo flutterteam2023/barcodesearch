@@ -20,6 +20,7 @@ import 'package:barcodesearch/features/Searching/Values/product_list.dart';
 import 'package:barcodesearch/features/Searching/details_sheet.dart';
 import 'package:barcodesearch/locator.dart';
 import 'package:barcodesearch/routing/route_constants.dart';
+import 'package:barcodesearch/utils/letter_upper_or_lower.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
@@ -213,21 +214,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                 BarcodeSearchingService.lastDocument = null;
                                 NameSearchingService.isLastPage = false;
                                 NameSearchingService.lastDocument = null;
+                                String searchText =
+                                    searchController.text.replaceAll(',', '.');
+                                //ilk harf büyük ikinci harf küçük ise
+                                if (isUpperCharacter(
+                                        searchController.text[0]) &&
+                                    isLowerCharacter(
+                                        searchController.text[1])) {
+                                  searchText =
+                                      firstLetterChangeToLower(searchText)
+                                          .toUpperCase();
+                                } else {
+                                  searchText = searchText.toUpperCase();
+                                }
                                 await BarcodeSearchingService()
                                     .searchInitiliaze(
-                                  text: searchController.text
-                                      .replaceAll(',', '.'),
+                                  text: searchText,
                                 );
                                 await NameSearchingService()
                                     .searchInitiliaze(
-                                  text: searchController.text
-                                      .replaceAll(',', '.'),
+                                  text: searchText,
                                 )
                                     .then((value) {
                                   context.pushNamed(
                                     APP_PAGE.results.toName,
                                     queryParams: {
-                                      'searchedText': searchController.text,
+                                      'searchedText': searchText,
                                     },
                                   );
                                 });
