@@ -19,9 +19,13 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+await initialization(null);
   await MyUser().getUserData;
   setupLocator();
   runApp(const MyApp());
+}
+Future initialization(BuildContext? context) async{
+  await Future.delayed(Duration(seconds: 3));
 }
 
 class MyApp extends StatelessWidget {
