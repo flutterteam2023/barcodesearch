@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
 import 'package:barcodesearch/common_widgets/input_field.dart';
-import 'package:barcodesearch/features/Authentication/Widgets/dialog.dart';
+import 'package:barcodesearch/common_widgets/dialog.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/register.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/reset.dart';
 import 'package:barcodesearch/utils/theme.dart';
@@ -92,9 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: textGrey,
                     splashRadius: 1,
                     icon: Icon(
-                      passwordVisible
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
+                      passwordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                     ),
                     onPressed: togglePassword,
                   ),

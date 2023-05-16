@@ -1,15 +1,13 @@
 import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
 import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/features/Searching/Values/product_list.dart';
-import 'package:barcodesearch/features/Searching/string.dart';
 import 'package:barcodesearch/firebase_options.dart';
 import 'package:barcodesearch/locator.dart';
 import 'package:barcodesearch/routing/routes.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sizer/sizer.dart';
 
 Future<void> main() async {
@@ -18,14 +16,23 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle.dark.copyWith(
+      systemNavigationBarIconBrightness: Brightness.dark,
+      statusBarColor: Colors.white,
+      systemNavigationBarColor: const Color(0xFFFFFFFF),
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
 
-await initialization(null);
+  await initialization(null);
   await MyUser().getUserData;
   setupLocator();
   runApp(const MyApp());
 }
-Future initialization(BuildContext? context) async{
-  await Future.delayed(Duration(seconds: 3));
+
+Future initialization(BuildContext? context) async {
+  await Future.delayed(Duration(seconds: 0));
 }
 
 class MyApp extends StatelessWidget {
@@ -39,7 +46,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Team',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.indigo,
             textTheme: TextTheme(
               headlineMedium: GoogleFonts.poppins(
                 fontSize: 150,
@@ -100,43 +107,6 @@ class MyApp extends StatelessWidget {
           routerConfig: AppRouter().router,
         );
       },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: ValueListenableBuilder(
-        valueListenable: ProductList(),
-        builder: (context, _, __) {
-          return ListView.builder(
-            itemCount: ProductList().length,
-            itemBuilder: (context, index) {
-              ProductModel product = ProductList().getIndex(index);
-              return Text(product.toString());
-            },
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }

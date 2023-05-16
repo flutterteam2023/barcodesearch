@@ -1,7 +1,6 @@
 import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/features/Searching/string.dart';
 import 'package:barcodesearch/firebase_options.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -12,17 +11,16 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   final productsList = productsString.split('\n').toList();
-  print(productsString.length);
+  debugPrint(productsString.length.toString());
   for (final element in productsList) {
     final list = element.split(' : ');
     final barcode = list[0];
     final name = list[1];
 
-    List<String> barcodeArray = [];
-    List<String> nameArray = [];
+    final barcodeArray = <String>[];
+    final nameArray = <String>[];
 
     //Z, ZE, ZEY, ZEYC, ZEYCE,
-
     for (var i = 0; i < (name.length); i++) {
       final arrayitem = name.substring(0, i + 1);
       if (!nameArray.contains(arrayitem) && arrayitem != '') {
@@ -73,17 +71,8 @@ Future<void> main() async {
     }
     //türkçe karakter ayrıştırması
     for (var element in nameArray) {
-      if (element.contains('U') ||
-          element.contains('O') ||
-          element.contains('I') ||
-          element.contains('C') ||
-          element.contains('S')) {
-        final newElement = element
-            .replaceAll('U', 'Ü')
-            .replaceAll('O', 'Ö')
-            .replaceAll('S', 'Ş')
-            .replaceAll('I', 'İ')
-            .replaceAll('C', 'Ç');
+      if (element.contains('U') || element.contains('O') || element.contains('I') || element.contains('C') || element.contains('S')) {
+        final newElement = element.replaceAll('U', 'Ü').replaceAll('O', 'Ö').replaceAll('S', 'Ş').replaceAll('I', 'İ').replaceAll('C', 'Ç');
 
         if (!nameArray.contains(newElement) && newElement != '') {
           nameArray.add(newElement);
@@ -93,25 +82,15 @@ Future<void> main() async {
 
     //küçük harfe çevirme
     for (final element in nameArray) {
-      if (!nameArray.contains(element.toLowerCase()) &&
-          element.toLowerCase() != '') {
+      if (!nameArray.contains(element.toLowerCase()) && element.toLowerCase() != '') {
         nameArray.add(element.toLowerCase());
       }
     }
 
     //küçük türkçe karakter ayrıştırması
     for (final element in nameArray) {
-      if (element.contains('u') ||
-          element.contains('o') ||
-          element.contains('i') ||
-          element.contains('c') ||
-          element.contains('s')) {
-        final newElement = element
-            .replaceAll('u', 'ü')
-            .replaceAll('o', 'ö')
-            .replaceAll('s', 'ş')
-            .replaceAll('ı', 'i')
-            .replaceAll('c', 'ç');
+      if (element.contains('u') || element.contains('o') || element.contains('i') || element.contains('c') || element.contains('s')) {
+        final newElement = element.replaceAll('u', 'ü').replaceAll('o', 'ö').replaceAll('s', 'ş').replaceAll('ı', 'i').replaceAll('c', 'ç');
 
         if (!nameArray.contains(newElement) && newElement != '') {
           nameArray.add(newElement);

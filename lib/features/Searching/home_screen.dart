@@ -1,36 +1,30 @@
-import 'dart:ui';
-
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:barcodesearch/app_config.dart';
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
+import 'package:barcodesearch/common_widgets/dialog.dart';
 import 'package:barcodesearch/common_widgets/input_field.dart';
 import 'package:barcodesearch/constants/authentication_constant.dart';
 import 'package:barcodesearch/constants/searching_constants.dart';
+import 'package:barcodesearch/features/Ads/Controller/ad_helper.dart';
 import 'package:barcodesearch/features/Ads/Controller/credit_manager.dart';
-import 'package:barcodesearch/features/Ads/reward_ads_screen.dart';
 import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
-import 'package:barcodesearch/features/Authentication/Widgets/dialog.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/login.dart';
 import 'package:barcodesearch/features/Authentication/login_manager.dart';
-import 'package:barcodesearch/features/Authentication/register_manager.dart';
-import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/features/Searching/Service/barcode_searching_service.dart';
 import 'package:barcodesearch/features/Searching/Service/name_searching_service.dart';
 import 'package:barcodesearch/features/Searching/Values/product_list.dart';
-import 'package:barcodesearch/features/Searching/details_sheet.dart';
+import 'package:barcodesearch/features/Suggestion/bottom_sheet.dart';
 import 'package:barcodesearch/locator.dart';
 import 'package:barcodesearch/routing/route_constants.dart';
 import 'package:barcodesearch/utils/letter_upper_or_lower.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:sizer/sizer.dart';
-
-import '../Ads/Controller/ad_helper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -111,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          print(MyUser().value!.uid);
+          suggestionModalBottomSheet(context);
         },
         label: Text(
           searchingConstants.suggestions,
@@ -121,152 +115,165 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         icon: const Icon(Iconsax.add_circle),
       ),
-      body: ValueListenableBuilder(
-        valueListenable: MyUser(),
-        builder: (context, _, __) {
-          return Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).viewPadding.top + 9,
-                  left: 18,
-                  right: 18,
-                ),
-                child: Column(
-                  children: [
-                    header(),
-                    if (!MyUser().isNull()) const SizedBox(height: 18),
-                    if (!MyUser().isNull())
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '${searchingConstants.welcome} ${MyUser().getName()}',
-                            style: GoogleFonts.poppins(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
+      body: SingleChildScrollView(
+        child: ValueListenableBuilder(
+          valueListenable: MyUser(),
+          builder: (context, _, __) {
+            return Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).viewPadding.top + 9,
+                    left: 18,
+                    right: 18,
+                  ),
+                  child: Column(
+                    children: [
+                      header(),
+                      if (!MyUser().isNull()) const SizedBox(height: 18),
+                      if (!MyUser().isNull())
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '${searchingConstants.welcome} ${MyUser().getName()}',
+                              style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  StringConstants.logout,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () async {
+                                    await LoginManager().signOut();
+                                  },
+                                  icon: const Icon(
+                                    Iconsax.login,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      const SizedBox(height: 18),
+                      SizedBox(
+                        height: 60,
+                        child: InputField(
+                          hintText: searchingConstants.searchText,
+                          suffixIcon: IconButton(
+                            onPressed: () async {
+                              await FlutterBarcodeScanner.scanBarcode(
+                                '#ff6666',
+                                'Cancel',
+                                false,
+                                ScanMode.BARCODE,
+                              ).then((value) {
+                                if (value != "-1") {
+                                  searchController.text = value;
+                                }
+                              });
+                            },
+                            icon: const Icon(
+                              Iconsax.scan_barcode,
+                              size: 26,
                             ),
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                StringConstants.logout,
-                                style: GoogleFonts.poppins(fontSize: 18),
-                              ),
-                              IconButton(
-                                onPressed: () async {
-                                  await LoginManager().signOut();
-                                },
-                                icon: const Icon(
-                                  Iconsax.login,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    const SizedBox(height: 18),
-                    SizedBox(
-                      height: 60,
-                      child: InputField(
-                        hintText: searchingConstants.searchText,
-                        suffixIcon: const Icon(
-                          Iconsax.scan_barcode,
-                          size: 26,
+                          onChanged: (value) {
+                            searchValue.value = value;
+                          },
+                          controller: searchController,
                         ),
-                        onChanged: (value) {
-                          searchValue.value = value;
-                        },
-                        controller: searchController,
                       ),
-                    ),
-                    const SizedBox(height: 18),
-/*                     ElevatedButton(
-                      onPressed: () {
-                        context.pushNamed(APP_PAGE.onboarding.toName);
-                      },
-                      child: const Text('Go Onboarding screens'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        showDetailsSheet(
-                          context: context,
-                          product: ProductModel(),
-                        );
-                      },
-                      child: const Text('Show Modal Bottom Sheet'),
-                    ), */
-                    SizedBox(
-                      height: 60,
-                      child: ValueListenableBuilder(
-                        valueListenable: searchValue,
-                        builder: (context, _, __) {
-                          return AppButtons.roundedButton(
-                            borderRadius: BorderRadius.circular(14),
-                            backgroundColor: searchController.text.isNotEmpty
-                                ? Colors.indigo
-                                : const Color(0xff94959b),
-                            iconData: Icons.search,
-                            function: () async {
-                              if (searchController.text.isNotEmpty) {
-                                ProductList().reset();
-                                BarcodeSearchingService.isLastPage = false;
-                                BarcodeSearchingService.lastDocument = null;
-                                NameSearchingService.isLastPage = false;
-                                NameSearchingService.lastDocument = null;
-                                String searchText =
-                                    searchController.text.replaceAll(',', '.');
-                                //ilk harf büyük ikinci harf küçük ise
-                                if (isUpperCharacter(
-                                        searchController.text[0]) &&
-                                    isLowerCharacter(
-                                        searchController.text[1])) {
-                                  searchText =
-                                      firstLetterChangeToLower(searchText)
-                                          .toUpperCase();
-                                } else {
-                                  searchText = searchText.toUpperCase();
-                                }
-                                await BarcodeSearchingService()
-                                    .searchInitiliaze(
-                                  text: searchText,
-                                );
-                                await NameSearchingService()
-                                    .searchInitiliaze(
-                                  text: searchText,
-                                )
-                                    .then((value) {
-                                  context.pushNamed(
-                                    APP_PAGE.results.toName,
-                                    queryParams: {
-                                      'searchedText': searchText,
-                                    },
-                                  );
-                                });
-                              }
-                            },
+                      const SizedBox(height: 18),
+                      /*                     ElevatedButton(
+                        onPressed: () {
+                          context.pushNamed(APP_PAGE.onboarding.toName);
+                        },
+                        child: const Text('Go Onboarding screens'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          showDetailsSheet(
+                            context: context,
+                            product: ProductModel(),
                           );
                         },
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 150,
-                    ),
-                    if (_bannerAd != null)
-                      Align(
-                        alignment: Alignment.topCenter,
-                        child: SizedBox(
-                          width: _bannerAd!.size.width.toDouble(),
-                          height: _bannerAd!.size.height.toDouble(),
-                          child: AdWidget(ad: _bannerAd!),
+                        child: const Text('Show Modal Bottom Sheet'),
+                      ), */
+                      SizedBox(
+                        height: 60,
+                        child: ValueListenableBuilder(
+                          valueListenable: searchValue,
+                          builder: (context, _, __) {
+                            return AppButtons.roundedButton(
+                              borderRadius: BorderRadius.circular(14),
+                              backgroundColor: searchController.text.isNotEmpty ? Colors.indigo : Color.fromARGB(255, 186, 186, 186),
+                              iconData: Icon(
+                                Icons.search,
+                                color: Colors.white,
+                              ),
+                              function: () async {
+                                if (searchController.text.isNotEmpty) {
+                                  ProductList().reset();
+                                  BarcodeSearchingService.isLastPage = false;
+                                  BarcodeSearchingService.lastDocument = null;
+                                  NameSearchingService.isLastPage = false;
+                                  NameSearchingService.lastDocument = null;
+                                  String searchText = searchController.text.replaceAll(',', '.');
+                                  //ilk harf büyük ikinci harf küçük ise
+                                  if (isUpperCharacter(searchController.text[0]) && isLowerCharacter(searchController.text[1])) {
+                                    searchText = firstLetterChangeToLower(searchText).toUpperCase();
+                                  } else {
+                                    searchText = searchText.toUpperCase();
+                                  }
+                                  await BarcodeSearchingService().searchInitiliaze(
+                                    text: searchText,
+                                  );
+                                  await NameSearchingService()
+                                      .searchInitiliaze(
+                                    text: searchText,
+                                  )
+                                      .then((value) {
+                                    context.pushNamed(
+                                      APP_PAGE.results.toName,
+                                      queryParams: {
+                                        'searchedText': searchText,
+                                      },
+                                    );
+                                  });
+                                }
+                              },
+                            );
+                          },
                         ),
                       ),
-                  ],
+                      const SizedBox(
+                        height: 150,
+                      ),
+                      if (_bannerAd != null)
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: SizedBox(
+                            width: _bannerAd!.size.width.toDouble(),
+                            height: _bannerAd!.size.height.toDouble(),
+                            child: AdWidget(ad: _bannerAd!),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -282,8 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
               _rewardedAd?.show(
                 onUserEarnedReward: (_, reward) async {
                   //final i = reward.amount.toInt();
-                  await CreditManager()
-                      .creditIncrement(APP_CONFIG.adRewardAmount);
+                  await CreditManager().creditIncrement(APP_CONFIG.adRewardAmount);
                 },
               );
             },

@@ -2,16 +2,14 @@ import 'dart:async';
 
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
 import 'package:barcodesearch/common_widgets/input_field.dart';
-import 'package:barcodesearch/features/Authentication/Widgets/dialog.dart';
+import 'package:barcodesearch/common_widgets/dialog.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/login.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/register.dart';
 import 'package:barcodesearch/utils/theme.dart';
 import 'package:barcodesearch/features/Authentication/login_manager.dart';
 
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 
 class ResetPasswordScreen extends StatefulWidget {
   @override
@@ -27,8 +25,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       backgroundColor: primaryBlue,
       text: 'Şifremi Sıfırla',
       function: () async {
-        LoginManager().textFieldValidate(LoginManager().forgetPassword,
-            LoginManager().validateForgetPassword);
+        LoginManager().textFieldValidate(LoginManager().forgetPassword, LoginManager().validateForgetPassword);
         await LoginManager().resetPassword(
           LoginManager().forgetPassword.value.toString().trim(),
           context,
@@ -39,12 +36,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     return WillPopScope(
       onWillPop: () async {
-        LoginManager().forgetPassword.value="";
+        LoginManager().forgetPassword.value = "";
         return true;
-        
       },
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 40, 24, 0),
@@ -93,8 +88,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 GestureDetector(
                   onTap: () {
                     showCustomModelBottomSheet(context, LoginScreen());
-    
-    
                   },
                   child: Text(
                     'Giriş Yap',

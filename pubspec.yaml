@@ -31,9 +31,9 @@ dependencies:
   another_flushbar: ^1.12.29
   barcode_widget: ^2.0.3
   cloud_firestore: ^4.5.2
-  cupertino_icons: ^1.0.2
   firebase_auth: ^4.4.2
   firebase_core: ^2.10.0
+  firebase_storage: ^11.2.1
   flutter:
     sdk: flutter
   flutter_barcode_scanner: ^2.0.0
@@ -45,17 +45,18 @@ dependencies:
   google_fonts: ^4.0.3
   google_mobile_ads: ^2.4.0
   iconsax: ^0.0.8
+  image_picker: ^0.8.7+5
   loading_animation_widget: ^1.2.0+4
   lottie: ^2.3.2
   multi_value_listenable_builder: ^0.0.2
   sizer: ^2.0.15
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   very_good_analysis: ^4.0.0+1
-
 
 flutter_native_splash:
   color: "#f7f6f1"

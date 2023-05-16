@@ -23,7 +23,7 @@ class InputField extends StatelessWidget {
   Color textGrey = const Color(0xff94959b);
   TextStyle heading6 = const TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
   );
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ import 'package:barcodesearch/constants/searching_constants.dart';
 import 'package:barcodesearch/exceptions/mediaquery.dart';
 import 'package:barcodesearch/features/Ads/Controller/credit_manager.dart';
 import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
-import 'package:barcodesearch/features/Authentication/Widgets/dialog.dart';
+import 'package:barcodesearch/common_widgets/dialog.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/login.dart';
 import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/locator.dart';
@@ -33,9 +33,7 @@ void showDetailsSheet({
       return MultiValueListenableBuilder(
         valueListenables: [MyUser(), isActiveBlur],
         builder: (context, s, ss) {
-          final blurText = MyUser().isNull()
-              ? searchingConstants.alertLogin
-              : searchingConstants.barcodeCost;
+          final blurText = MyUser().isNull() ? searchingConstants.alertLogin : searchingConstants.barcodeCost;
           return Container(
             height: context.height - context.safeTop - 70,
             margin: EdgeInsets.only(
@@ -64,13 +62,8 @@ void showDetailsSheet({
                         Text(product.name ?? 'null error'),
                         Bounceable(
                           onTap: () async {
-                            if (!MyUser().isNull() &&
-                                isActiveBlur.value == true &&
-                                (MyUser().getCredit() ?? 0) >=
-                                    APP_CONFIG.barcodeViewFee) {
-                              await CreditManager()
-                                  .creditDiscrememnt(APP_CONFIG.barcodeViewFee)
-                                  .then((value) {
+                            if (!MyUser().isNull() && isActiveBlur.value == true && (MyUser().getCredit() ?? 0) >= APP_CONFIG.barcodeViewFee) {
+                              await CreditManager().creditDiscrememnt(APP_CONFIG.barcodeViewFee).then((value) {
                                 if (value == true) {
                                   isActiveBlur.value = false;
                                 } else {
@@ -96,28 +89,20 @@ void showDetailsSheet({
                                 ClipRect(
                                   child: BackdropFilter(
                                     filter: ImageFilter.blur(
-                                      sigmaX: MyUser().isNull() ||
-                                              isActiveBlur.value
-                                          ? 4
-                                          : 0,
-                                      sigmaY: MyUser().isNull() ||
-                                              isActiveBlur.value
-                                          ? 4
-                                          : 0,
+                                      sigmaX: MyUser().isNull() || isActiveBlur.value ? 4 : 0,
+                                      sigmaY: MyUser().isNull() || isActiveBlur.value ? 4 : 0,
                                     ),
                                     child: SizedBox(
                                       width: 80.w,
                                       height: 100,
-                                      child: MyUser().isNull() ||
-                                              isActiveBlur.value
+                                      child: MyUser().isNull() || isActiveBlur.value
                                           ? Center(
                                               child: Text(
                                                 blurText,
                                                 textAlign: TextAlign.center,
                                                 style: GoogleFonts.poppins(
                                                   fontSize: 18,
-                                                  backgroundColor:
-                                                      Colors.indigo,
+                                                  backgroundColor: Colors.indigo,
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
                                                 ),

@@ -2,7 +2,7 @@ import 'package:barcodesearch/exceptions/mediaquery.dart';
 
 import 'package:flutter/material.dart';
 
-void showCustomModelBottomSheet(BuildContext context, Widget body) {
+void showCustomModelBottomSheet(BuildContext context, Widget body, {bool? isScrollControlled}) {
   Navigator.of(context).canPop();
 
   showModalBottomSheet<Widget>(
@@ -10,7 +10,7 @@ void showCustomModelBottomSheet(BuildContext context, Widget body) {
       borderRadius: BorderRadius.circular(14),
     ),
     context: context,
-    isScrollControlled: true,
+    isScrollControlled: isScrollControlled ?? true,
     builder: (context) => Container(
       height: context.height - context.safeTop - 70,
       margin: EdgeInsets.only(

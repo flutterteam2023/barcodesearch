@@ -25,8 +25,7 @@ class _ResultScreenState extends State<ResultScreen> {
     _scrollController = ScrollController();
 
     _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent ==
-          _scrollController.offset) {
+      if (_scrollController.position.maxScrollExtent == _scrollController.offset) {
         BarcodeSearchingService().loadMoreData(
           text: widget.searchedText.replaceAll(',', '.'),
         );
@@ -49,11 +48,21 @@ class _ResultScreenState extends State<ResultScreen> {
     var loading = false;
     return Scaffold(
       appBar: AppBar(
+        shadowColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.grey[850],
+          ),
+        ),
         centerTitle: false,
         title: Text(
           'Arama Sonuçları:\n${widget.searchedText}',
           style: GoogleFonts.poppins(
             fontSize: 18,
+            color: Colors.grey[850],
           ),
         ),
       ),
@@ -66,15 +75,11 @@ class _ResultScreenState extends State<ResultScreen> {
               itemCount: ProductList().length + 1,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
-                if (BarcodeSearchingService.isLastPage &&
-                    NameSearchingService.isLastPage &&
-                    ProductList().length == 0) {
+                if (BarcodeSearchingService.isLastPage && NameSearchingService.isLastPage && ProductList().length == 0) {
                   return const Center(
                     child: Text('ürün bulunamadı.'),
                   );
-                } else if (BarcodeSearchingService.isLastPage &&
-                    NameSearchingService.isLastPage &&
-                    index == ProductList().length) {
+                } else if (BarcodeSearchingService.isLastPage && NameSearchingService.isLastPage && index == ProductList().length) {
                   return Center(
                     child: Text('${ProductList().length} ürün bulundu.'),
                   );

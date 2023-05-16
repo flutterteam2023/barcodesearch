@@ -10,7 +10,8 @@ class AppButtons {
     bool? isLoadingButton,
     Color? backgroundColor,
     BorderRadius? borderRadius,
-    IconData? iconData,
+    Icon? iconData,
+    TextStyle? textStyle,
   }) {
     final isSignInLoading = ValueNotifier<bool>(false);
     return InkWell(
@@ -24,6 +25,7 @@ class AppButtons {
         } else {
           print("APP_BUTTONS_ERROR");
         }
+        isSignInLoading.value = false;
       },
       child: Container(
         decoration: BoxDecoration(
@@ -62,17 +64,15 @@ class AppButtons {
                   else
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        if (iconData != null)
-                          Icon(
-                            iconData,
-                            color: Colors.white,
-                          ),
+                        if (iconData != null) iconData,
                         Text(
                           text ?? '',
-                          style: const TextStyle(
-                              fontSize: 18, color: Colors.white),
+                          style: textStyle ??
+                              const TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
                         ),
                       ],
                     ),
@@ -125,7 +125,9 @@ class AppButtons {
                   return Text(
                     text ?? '',
                     style: TextStyle(
-                        fontSize: 18, color: textColor ?? Colors.black),
+                      fontSize: 18,
+                      color: textColor ?? Colors.black,
+                    ),
                   );
                 }
               },
