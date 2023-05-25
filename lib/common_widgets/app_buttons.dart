@@ -23,7 +23,7 @@ class AppButtons {
                 (value) => isSignInLoading.value = false,
               );
         } else {
-          print("APP_BUTTONS_ERROR");
+          print('APP_BUTTONS_ERROR');
         }
         isSignInLoading.value = false;
       },

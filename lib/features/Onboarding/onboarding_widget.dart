@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class OnBoardingData extends StatefulWidget {
-   OnBoardingData({
+   const OnBoardingData({
     required this.image,
     required this.desc,
     super.key,

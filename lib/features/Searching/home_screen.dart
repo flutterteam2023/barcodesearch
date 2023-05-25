@@ -176,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 false,
                                 ScanMode.BARCODE,
                               ).then((value) {
-                                if (value != "-1") {
+                                if (value != '-1') {
                                   searchController.text = value;
                                 }
                               });
@@ -215,8 +215,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           builder: (context, _, __) {
                             return AppButtons.roundedButton(
                               borderRadius: BorderRadius.circular(14),
-                              backgroundColor: searchController.text.isNotEmpty ? Colors.indigo : Color.fromARGB(255, 186, 186, 186),
-                              iconData: Icon(
+                              backgroundColor: searchController.text.isNotEmpty ? Colors.indigo : const Color.fromARGB(255, 186, 186, 186),
+                              iconData: const Icon(
                                 Icons.search,
                                 color: Colors.white,
                               ),
@@ -227,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   BarcodeSearchingService.lastDocument = null;
                                   NameSearchingService.isLastPage = false;
                                   NameSearchingService.lastDocument = null;
-                                  String searchText = searchController.text.replaceAll(',', '.');
+                                  var searchText = searchController.text.replaceAll(',', '.');
                                   //ilk harf büyük ikinci harf küçük ise
                                   if (isUpperCharacter(searchController.text[0]) && isLowerCharacter(searchController.text[1])) {
                                     searchText = firstLetterChangeToLower(searchText).toUpperCase();
@@ -345,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Bounceable(
             onTap: () {
               if (FirebaseAuth.instance.currentUser == null) {
-                showCustomModelBottomSheet(context, LoginScreen());
+                showCustomModelBottomSheet(context, const LoginScreen());
               } else {}
             },
             child: Container(

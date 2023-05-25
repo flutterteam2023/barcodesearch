@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:308637159495:android:cc74245facbcc750252162",
+        "mobilesdk_app_id": "1:308637159495:android:f0e1ab6c2464b505252162",
         "android_client_info": {
-          "package_name": "com.example.barcodesearch"
+          "package_name": "app.barkodsorgulama"
         }
       },
       "oauth_client": [
@@ -29,6 +29,49 @@
             {
               "client_id": "308637159495-9as6sp09jqi2p9gnatu547dt1fci05r9.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "308637159495-aqe6mojf0d9bgsqrlcii7om8578bnejp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.barcodesearch"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308637159495:android:5077243d8c495bfb252162",
+        "android_client_info": {
+          "package_name": "com.example.barcodesearch_admin_panel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308637159495-9as6sp09jqi2p9gnatu547dt1fci05r9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6aS6Jp3lwohryFE2vHKIcUvDxcHfnr2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308637159495-9as6sp09jqi2p9gnatu547dt1fci05r9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "308637159495-aqe6mojf0d9bgsqrlcii7om8578bnejp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.barcodesearch"
+              }
             }
           ]
         }

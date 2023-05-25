@@ -3,12 +3,12 @@ import 'dart:ui';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:barcodesearch/app_config.dart';
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
+import 'package:barcodesearch/common_widgets/dialog.dart';
 import 'package:barcodesearch/constants/authentication_constant.dart';
 import 'package:barcodesearch/constants/searching_constants.dart';
 import 'package:barcodesearch/exceptions/mediaquery.dart';
 import 'package:barcodesearch/features/Ads/Controller/credit_manager.dart';
 import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
-import 'package:barcodesearch/common_widgets/dialog.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/login.dart';
 import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/locator.dart';
@@ -124,7 +124,7 @@ void showDetailsSheet({
                             function: () async {
                               showCustomModelBottomSheet(
                                 context,
-                                LoginScreen(),
+                                const LoginScreen(),
                               );
                             },
                           ),

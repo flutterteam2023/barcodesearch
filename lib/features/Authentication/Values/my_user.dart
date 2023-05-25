@@ -1,7 +1,6 @@
 import 'package:barcodesearch/constants/collections_constants.dart';
-import 'package:barcodesearch/features/Authentication/Models/user_model.dart';
 import 'package:barcodesearch/constants/firebase_constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:barcodesearch/features/Authentication/Models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

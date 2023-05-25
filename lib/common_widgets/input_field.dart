@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 class InputField extends StatelessWidget {
   InputField({
     required this.suffixIcon,
-    this.controller,
-    required this.hintText,
+    required this.hintText, this.controller,
     super.key,
     this.validator,
     this.obscureText = false,

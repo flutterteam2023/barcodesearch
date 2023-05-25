@@ -1,16 +1,14 @@
+import 'package:barcodesearch/features/Onboarding/onboarding_screen.dart';
 import 'package:barcodesearch/features/Searching/home_screen.dart';
 import 'package:barcodesearch/features/Searching/results_screen.dart';
-import 'package:barcodesearch/features/Onboarding/onboarding_screen.dart';
 import 'package:barcodesearch/routing/error_screen.dart';
-
 import 'package:barcodesearch/routing/route_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
-  GlobalKey<NavigatorState> rootNavigatorKey =
-      GlobalKey<NavigatorState>(debugLabel: 'root navigotor key');
+  GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root navigotor key');
   // ignore: lines_longer_than_80_chars
   GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
   GoRouter get router => GoRouter(
@@ -23,7 +21,8 @@ class AppRouter {
             path: APP_PAGE.initial.toPath,
             name: APP_PAGE.initial.toName,
             builder: (BuildContext context, GoRouterState state) {
-              bool isFirstAppOpen = false;
+              const isFirstAppOpen = false;
+
               if (isFirstAppOpen) {
                 return OnboardingScreen();
               } else {

@@ -1,18 +1,15 @@
-import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/features/Searching/Service/barcode_searching_service.dart';
 import 'package:barcodesearch/features/Searching/Service/name_searching_service.dart';
 import 'package:barcodesearch/features/Searching/Values/product_list.dart';
 import 'package:barcodesearch/features/Searching/details_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ResultScreen extends StatefulWidget {
-  const ResultScreen({super.key, required this.searchedText});
+  const ResultScreen({required this.searchedText, super.key});
   final String searchedText;
   @override
   State<ResultScreen> createState() => _ResultScreenState();
@@ -45,7 +42,7 @@ class _ResultScreenState extends State<ResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var loading = false;
+    const loading = false;
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.transparent,
@@ -84,13 +81,13 @@ class _ResultScreenState extends State<ResultScreen> {
                     child: Text('${ProductList().length} ürün bulundu.'),
                   );
                 } else if (index == ProductList().length) {
-                  return SizedBox.square(
+                  return const SizedBox.square(
                     dimension: 50,
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             CircularProgressIndicator(),
                           ],
                         ),

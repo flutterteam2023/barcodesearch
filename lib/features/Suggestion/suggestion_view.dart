@@ -4,12 +4,8 @@ import 'dart:async';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
-import 'package:barcodesearch/common_widgets/input_field.dart';
 import 'package:barcodesearch/common_widgets/dialog.dart';
-import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
-import 'package:barcodesearch/features/Authentication/Widgets/register.dart';
-import 'package:barcodesearch/features/Authentication/Widgets/reset.dart';
-import 'package:barcodesearch/features/Authentication/login_manager.dart';
+import 'package:barcodesearch/common_widgets/input_field.dart';
 import 'package:barcodesearch/utils/theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,6 +17,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
 class SuggestionView extends StatefulWidget {
+  const SuggestionView({super.key});
+
   @override
   _SuggestionViewState createState() => _SuggestionViewState();
 }
@@ -200,7 +198,7 @@ class _SuggestionViewState extends State<SuggestionView> {
                         false,
                         ScanMode.BARCODE,
                       ).then((value) {
-                        if (value != "-1") {
+                        if (value != '-1') {
                           productBarcodeNumberController.text = value;
                         }
                       });

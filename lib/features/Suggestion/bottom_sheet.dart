@@ -5,6 +5,6 @@ import 'package:flutter/material.dart';
 void suggestionModalBottomSheet(BuildContext context) {
   showCustomModelBottomSheet(
     context,
-    SuggestionView(),
+    const SuggestionView(),
   );
 }

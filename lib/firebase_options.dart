@@ -2,7 +2,7 @@
 // ignore_for_file: lines_longer_than_80_chars, avoid_classes_with_only_static_members
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
-    show defaultTargetPlatform, kIsWeb, TargetPlatform;
+    show TargetPlatform, defaultTargetPlatform, kIsWeb;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD6aS6Jp3lwohryFE2vHKIcUvDxcHfnr2s',
-    appId: '1:308637159495:android:cc74245facbcc750252162',
+    appId: '1:308637159495:android:f0e1ab6c2464b505252162',
     messagingSenderId: '308637159495',
     projectId: 'barcodesearch',
     storageBucket: 'barcodesearch.appspot.com',
@@ -62,7 +62,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC7G0k5D1A6ZGWgkoL56EGEShy1c71q3RQ',
-    appId: '1:308637159495:ios:c1137b58bd3f52be252162',
+    appId: '1:308637159495:ios:2f833096697119e6252162',
     messagingSenderId: '308637159495',
     projectId: 'barcodesearch',
     storageBucket: 'barcodesearch.appspot.com',
@@ -72,7 +72,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyC7G0k5D1A6ZGWgkoL56EGEShy1c71q3RQ',
-    appId: '1:308637159495:ios:c1137b58bd3f52be252162',
+    appId: '1:308637159495:ios:2f833096697119e6252162',
     messagingSenderId: '308637159495',
     projectId: 'barcodesearch',
     storageBucket: 'barcodesearch.appspot.com',

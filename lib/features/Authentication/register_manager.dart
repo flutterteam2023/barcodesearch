@@ -6,7 +6,6 @@ import 'package:barcodesearch/features/Authentication/Models/user_model.dart';
 import 'package:barcodesearch/features/Authentication/Values/my_user.dart';
 import 'package:barcodesearch/features/Authentication/login_manager.dart';
 import 'package:barcodesearch/routing/route_constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +25,6 @@ class RegisterManager extends ValueNotifier<String> {
   ValueNotifier<bool> createUserControl = ValueNotifier<bool>(false);
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   void checked() {
     isChecked.value = !isChecked.value;
     notifyListeners();
@@ -34,37 +32,38 @@ class RegisterManager extends ValueNotifier<String> {
 
 //Yeni Kullanıcı Oluşturma
   Future<User?> createUser(
-    String _email,
-    String _password,
-    String _rePassword,
-    String _name,
-    String _surname,
-    int _credit,
-    DateTime _createdAt,
+    String email,
+    String password,
+    String rePassword,
+    String name,
+    String surname,
+    int credit,
+    DateTime createdAt,
     BuildContext context,
   ) async {
-    UserModel userModels = UserModel(
-        email: _email,
-        createdAt: _createdAt,
-        name: _name,
-        surname: _surname,
-        credit: _credit);
+    final userModels = UserModel(
+      email: email,
+      createdAt: createdAt,
+      name: name,
+      surname: surname,
+      credit: credit,
+    );
     createUserControl.value = true;
 
     if (userModels.email.isNotEmpty &&
-        _password.isNotEmpty &&
-        _rePassword.isNotEmpty &&
+        password.isNotEmpty &&
+        rePassword.isNotEmpty &&
         userModels.name.isNotEmpty &&
         userModels.surname.isNotEmpty &&
         isChecked.value == true) {
-      if (_password == _rePassword) {
+      if (password == rePassword) {
         try {
-          var user = await _auth.createUserWithEmailAndPassword(
-              email: userModels.email, password: _password);
+          final user = await _auth.createUserWithEmailAndPassword(
+            email: userModels.email,
+            password: password,
+          );
 
-          await FireCollection.collection(FirebaseConstants.usersCollection)
-              .doc(user.user?.uid)
-              .set({
+          await FireCollection.collection(FirebaseConstants.usersCollection).doc(user.user?.uid).set({
             'name': userModels.name,
             'surname': userModels.surname,
             'email': userModels.email,
@@ -74,7 +73,7 @@ class RegisterManager extends ValueNotifier<String> {
             await MyUser().getUserData;
           });
 
-          Flushbar(
+          await Flushbar(
             title: StringConstants.successfull,
             message: StringConstants.registerSuccessful,
             duration: const Duration(seconds: 2),
@@ -84,35 +83,35 @@ class RegisterManager extends ValueNotifier<String> {
 
           createUserControl.value = false;
 
-          email.value = '';
-          password.value = '';
-          rePassword.value = '';
+          email = '';
+          password = '';
+          rePassword = '';
           LoginManager().email.value = '';
           LoginManager().password.value = '';
           LoginManager().forgetPassword.value = '';
 
           return user.user;
         } on FirebaseAuthException catch (e) {
-          if (e.code.toString() == StringConstants.invalidEmail) {
-            Flushbar(
+          if (e.code == StringConstants.invalidEmail) {
+            await Flushbar(
               title: StringConstants.unsuccessful,
               message: StringConstants.emailIsInvalid,
               duration: const Duration(seconds: 2),
             ).show(context);
-          } else if (e.code.toString() == StringConstants.weakPassword) {
-            Flushbar(
+          } else if (e.code == StringConstants.weakPassword) {
+            await Flushbar(
               title: StringConstants.unsuccessful,
               message: StringConstants.passwordIsWeak,
               duration: const Duration(seconds: 2),
             ).show(context);
-          } else if (e.code.toString() == StringConstants.emailAlreadyInUse) {
-            Flushbar(
+          } else if (e.code == StringConstants.emailAlreadyInUse) {
+            await Flushbar(
               title: StringConstants.unsuccessful,
               message: StringConstants.usingEmail,
               duration: const Duration(seconds: 2),
             ).show(context);
           } else {
-            Flushbar(
+            await Flushbar(
               title: StringConstants.unsuccessful,
               message: StringConstants.emptyError,
               duration: const Duration(seconds: 2),
@@ -120,30 +119,31 @@ class RegisterManager extends ValueNotifier<String> {
           }
         }
       } else {
-        Flushbar(
+        await Flushbar(
           title: StringConstants.unsuccessful,
           message: StringConstants.repetitivePasswordError,
           duration: const Duration(seconds: 2),
         ).show(context);
       }
     } else if (userModels.email.isNotEmpty &&
-        _password.isNotEmpty &&
-        _rePassword.isNotEmpty &&
+        password.isNotEmpty &&
+        rePassword.isNotEmpty &&
         userModels.name.isNotEmpty &&
         userModels.surname.isNotEmpty &&
         isChecked.value == false) {
-      Flushbar(
+      await Flushbar(
         title: StringConstants.unsuccessful,
         message: StringConstants.protocolError,
         duration: const Duration(seconds: 2),
       ).show(context);
     } else {
-      Flushbar(
+      await Flushbar(
         title: StringConstants.unsuccessful,
         message: StringConstants.spaceGapError,
         duration: const Duration(seconds: 2),
       ).show(context);
       createUserControl.value = false;
     }
+    return null;
   }
 }

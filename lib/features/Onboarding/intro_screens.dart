@@ -1,19 +1,16 @@
 import 'package:barcodesearch/features/Onboarding/onboarding_widget.dart';
-import 'package:barcodesearch/features/Searching/home_screen.dart';
-
-
 
 import 'package:barcodesearch/routing/route_constants.dart';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class IntroScreen extends StatefulWidget {
   const IntroScreen(
     this.onbordingDataList,
-    this.pageRoute,
-  );
+    this.pageRoute, {
+    super.key,
+  });
   final List<OnBoardingData> onbordingDataList;
   final MaterialPageRoute pageRoute;
 
@@ -75,7 +72,7 @@ class IntroScreenState extends State<IntroScreen> {
               children: <Widget>[
                 TextButton(
                   child: const Text(
-                    "SKIP",
+                    'SKIP',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -99,9 +96,7 @@ class IntroScreenState extends State<IntroScreen> {
                 ),
                 TextButton(
                   child: Text(
-                    currentPage == widget.onbordingDataList.length - 1
-                        ? "GOT IT"
-                        : "NEXT",
+                    currentPage == widget.onbordingDataList.length - 1 ? 'GOT IT' : 'NEXT',
                     style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,

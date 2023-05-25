@@ -1,17 +1,15 @@
-import 'dart:async';
-
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
-import 'package:barcodesearch/common_widgets/input_field.dart';
 import 'package:barcodesearch/common_widgets/dialog.dart';
+import 'package:barcodesearch/common_widgets/input_field.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/register.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/reset.dart';
-import 'package:barcodesearch/utils/theme.dart';
 import 'package:barcodesearch/features/Authentication/login_manager.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:barcodesearch/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -105,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           GestureDetector(
             onTap: () {
-              showCustomModelBottomSheet(context, ResetPasswordScreen());
+              showCustomModelBottomSheet(context, const ResetPasswordScreen());
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -134,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  showCustomModelBottomSheet(context, RegisterScreen());
+                  showCustomModelBottomSheet(context, const RegisterScreen());
                 },
                 child: Text(
                   'Kayıt Olun',

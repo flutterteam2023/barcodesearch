@@ -1,17 +1,15 @@
-import 'dart:async';
-
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
-import 'package:barcodesearch/common_widgets/input_field.dart';
 import 'package:barcodesearch/common_widgets/dialog.dart';
+import 'package:barcodesearch/common_widgets/input_field.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/login.dart';
 import 'package:barcodesearch/features/Authentication/Widgets/register.dart';
-import 'package:barcodesearch/utils/theme.dart';
 import 'package:barcodesearch/features/Authentication/login_manager.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:barcodesearch/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
+
   @override
   _ResetPasswordScreenState createState() => _ResetPasswordScreenState();
 }
@@ -27,7 +25,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       function: () async {
         LoginManager().textFieldValidate(LoginManager().forgetPassword, LoginManager().validateForgetPassword);
         await LoginManager().resetPassword(
-          LoginManager().forgetPassword.value.toString().trim(),
+          LoginManager().forgetPassword.value.trim(),
           context,
         );
       },
@@ -38,7 +36,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        LoginManager().forgetPassword.value = "";
+        LoginManager().forgetPassword.value = '';
         return true;
       },
       child: Padding(
@@ -87,17 +85,17 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    showCustomModelBottomSheet(context, LoginScreen());
+                    showCustomModelBottomSheet(context, const LoginScreen());
                   },
                   child: Text(
                     'Giriş Yap',
                     style: regular16pt.copyWith(color: primaryBlue),
                   ),
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 GestureDetector(
                   onTap: () {
-                    showCustomModelBottomSheet(context, RegisterScreen());
+                    showCustomModelBottomSheet(context, const RegisterScreen());
                   },
                   child: Text(
                     'Kayıt Olun',

@@ -1,10 +1,9 @@
 import 'package:barcodesearch/constants/collections_constants.dart';
+import 'package:barcodesearch/constants/firebase_constants.dart';
 import 'package:barcodesearch/features/Searching/Models/product_model.dart';
 import 'package:barcodesearch/features/Searching/Values/product_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import '../../../constants/firebase_constants.dart';
 
 class BarcodeSearchingService {
   static DocumentSnapshot? lastDocument;
@@ -41,11 +40,11 @@ class BarcodeSearchingService {
         }
       },
     );
-    debugPrint("loaded initilaize data");
+    debugPrint('loaded initilaize data');
   }
 
   Future<void> loadMoreData({required String text}) async {
-    debugPrint("loaded more working");
+    debugPrint('loaded more working');
     if (!isLastPage) {
       if (lastDocument != null) {
         await FireCollection.collection(FirebaseConstants.productCollection)
@@ -80,10 +79,10 @@ class BarcodeSearchingService {
             }
           },
         );
-        debugPrint("loaded more data");
+        debugPrint('loaded more data');
       }
     } else {
-      debugPrint("is last page ${ProductList().length}");
+      debugPrint('is last page ${ProductList().length}');
     }
   }
 }

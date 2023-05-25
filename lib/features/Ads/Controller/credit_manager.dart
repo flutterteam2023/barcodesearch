@@ -30,7 +30,7 @@ class CreditManager {
       return true;
     } else {
       return false;
-      print("krediniz yetersiz uyarısı");
+      print('krediniz yetersiz uyarısı');
     }
   }
 }

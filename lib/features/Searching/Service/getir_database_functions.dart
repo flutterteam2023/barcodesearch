@@ -1,5 +1,4 @@
 import 'package:barcodesearch/features/Searching/Models/product_model.dart';
-import 'package:barcodesearch/features/Searching/string.dart';
 import 'package:barcodesearch/firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,8 +11,9 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  String data =
-      """1+1 Silver Elegant Stripe Baskılı 12" Balon (14'lü)	['8680838539082']
+  const data =
+      """
+1+1 Silver Elegant Stripe Baskılı 12" Balon (14'lü)	['8680838539082']
 12" Kalp Balon (Kırmızı 16'lı)	['8680838526617']
 12" Karışık Balon (25'li)	['8680838527454']
 ABC Cam Temizleyici (750 ml)	['8690511171683']
@@ -4579,12 +4579,12 @@ Züber Fındıklı Protein Barı (35 g)	['8681630110011']
 Züber Kakaolu & Fındıklı Meyve Bar (40 g)	['8681630107011']
 Züber Kakaolu Protein Barı (35 g)	['8681630108018']""";
 
-  List<List<String>> biglist = [];
+  final biglist = <List<String>>[];
   final productsList = data.split('\n').toList();
   print(productsList.length);
 
   for (final element in productsList) {
-    List<String> list = [];
+    final list = <String>[];
 
     element.split('[').forEach(
       (e) {
@@ -4603,9 +4603,9 @@ Züber Kakaolu Protein Barı (35 g)	['8681630108018']""";
             .replaceAll('	', '')
             .replaceAll("""'""", '').split(',');
         if (x.length > 1) {
-          x.forEach(
-            (element) => list.add(element.replaceAll('  ', '')),
-          );
+          for (final element in x) {
+            list.add(element.replaceAll('  ', ''));
+          }
         } else {
           list.add(
             x.first,
@@ -4618,8 +4618,8 @@ Züber Kakaolu Protein Barı (35 g)	['8681630108018']""";
     biglist.add(list);
   }
 
-  for (var item in biglist) {
-    List<String> otherBarcodes = [];
+  for (final item in biglist) {
+    final otherBarcodes = <String>[];
     final barcode = item[1];
     final name = item[0];
 
@@ -4631,13 +4631,13 @@ Züber Kakaolu Protein Barı (35 g)	['8681630108018']""";
       });
     }
 
-    ProductModel productModel = ProductModel(
-        name: name, barcode: barcode, otherBarcodes: otherBarcodes);
+    final productModel = ProductModel(
+        name: name, barcode: barcode, otherBarcodes: otherBarcodes,);
 
     //print(productModel);
 
-    List<String> barcodeArray = [];
-    List<String> nameArray = [];
+    final barcodeArray = <String>[];
+    final nameArray = <String>[];
 
     //Z, ZE, ZEY, ZEYC, ZEYCE,
 
@@ -4691,7 +4691,7 @@ Züber Kakaolu Protein Barı (35 g)	['8681630108018']""";
     }
 
 //küçük türkçe karakter ayrıştırması
-    List<String> lowerTurkish = [];
+    final lowerTurkish = <String>[];
     for (final element in nameArray) {
       if (element.contains('u') ||
           element.contains('o') ||
@@ -4712,7 +4712,7 @@ Züber Kakaolu Protein Barı (35 g)	['8681630108018']""";
     }
     nameArray.addAll(lowerTurkish);
     //büyük harfe çevirme
-    List<String> lower = [];
+    final lower = <String>[];
     for (final element in nameArray) {
       if (!nameArray.contains(element.toUpperCase()) &&
           element.toUpperCase() != '') {
@@ -4722,8 +4722,8 @@ Züber Kakaolu Protein Barı (35 g)	['8681630108018']""";
     nameArray.addAll(lower);
 
     //türkçe karakter ayrıştırması
-    List<String> turkishCharacter = [];
-    for (var element in nameArray) {
+    final turkishCharacter = <String>[];
+    for (final element in nameArray) {
       if (element.contains('U') ||
           element.contains('O') ||
           element.contains('I') ||
@@ -4746,7 +4746,6 @@ Züber Kakaolu Protein Barı (35 g)	['8681630108018']""";
     final product = ProductModel(
       name: name,
       barcode: barcode,
-      photoURL: null,
       nameArray: nameArray,
       barcodeArray: barcodeArray,
       otherBarcodes: otherBarcodes,

@@ -1,14 +1,12 @@
-import 'dart:async';
-
 import 'package:barcodesearch/common_widgets/app_buttons.dart';
 import 'package:barcodesearch/common_widgets/input_field.dart';
-import 'package:barcodesearch/features/Authentication/login_manager.dart';
-import 'package:barcodesearch/utils/theme.dart';
 import 'package:barcodesearch/features/Authentication/register_manager.dart';
-
+import 'package:barcodesearch/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -51,7 +49,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Expanded(
-                        flex: 1,
                         child: InputField(
                           hintText: 'Adınız',
                           suffixIcon: const SizedBox(),
@@ -60,11 +57,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Expanded(
-                        flex: 1,
                         child: InputField(
                           hintText: 'Soyadınız',
                           suffixIcon: const SizedBox(),
@@ -96,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       splashRadius: 1,
                       icon: Icon(passwordVisible
                           ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined),
+                          : Icons.visibility_off_outlined,),
                       onPressed: togglePassword,
                     ),
                     onChanged: (p0) {
@@ -114,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       splashRadius: 1,
                       icon: Icon(passwordVisible
                           ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined),
+                          : Icons.visibility_off_outlined,),
                       onPressed: togglePassword,
                     ),
                     onChanged: (p0) {
@@ -131,7 +127,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               height: 18,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
@@ -207,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     RegisterManager().createdAt.value,
                     context,
                   );
-                }),
+                },),
             const SizedBox(
               height: 50,
             ),
@@ -215,7 +210,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Zaten hesabınız var mı? ",
+                  'Zaten hesabınız var mı? ',
                   style: regular16pt.copyWith(color: textGrey),
                 ),
                 GestureDetector(
@@ -229,7 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 18),
+            const SizedBox(height: 18),
           ],
         ),
       ),

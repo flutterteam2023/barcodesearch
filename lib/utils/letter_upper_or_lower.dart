@@ -11,7 +11,7 @@ bool isLowerCharacter(String character) {
 }
 
 String firstLetterChangeToLower(String text) {
-  List<String> l = text.split("");
+  final l = text.split('');
   l[0] = l[0].toLowerCase();
   return l.join();
 }

@@ -70,7 +70,7 @@ Future<void> main() async {
       }
     }
     //türkçe karakter ayrıştırması
-    for (var element in nameArray) {
+    for (final element in nameArray) {
       if (element.contains('U') || element.contains('O') || element.contains('I') || element.contains('C') || element.contains('S')) {
         final newElement = element.replaceAll('U', 'Ü').replaceAll('O', 'Ö').replaceAll('S', 'Ş').replaceAll('I', 'İ').replaceAll('C', 'Ç');
 
@@ -104,7 +104,6 @@ Future<void> main() async {
     final product = ProductModel(
       name: name,
       barcode: barcode,
-      photoURL: null,
       nameArray: nameArray,
       barcodeArray: barcodeArray,
     );
