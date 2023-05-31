@@ -42,7 +42,7 @@ class _ResultScreenState extends State<ResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const loading = false;
+  
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.transparent,

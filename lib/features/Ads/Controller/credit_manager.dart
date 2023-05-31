@@ -16,6 +16,7 @@ class CreditManager {
       MyUser().creditUpdate(
         (MyUser().getCredit() ?? 0) + incrementNumber,
       );
+
       await CreditManager().creditAdd(MyUser().value!.credit);
     }
   }
